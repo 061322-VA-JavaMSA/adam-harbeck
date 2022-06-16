@@ -14,6 +14,7 @@ public class menu {
 		 Need a variable to keep the app running while the user still wishes to use the application
 		*/
 		while(proceed) {
+			System.out.println("Welcome to the Menu!");
 			showMenu();
 		}
 		
@@ -25,10 +26,9 @@ public class menu {
 	public static void showMenu() {
 		/*
 		  This needs to show options and allows the user to choose an option. 
-		  
 		*/
-		System.out.println("Welcome to the Menu! \nPlease choose an option below");
-		System.out.println("1: Get a random number \n2: Reverse a word \n3: Get the area of a square \n4: Exit Program");
+		System.out.println("Please choose an option below");
+		System.out.println("1: Get a random number \n2: Reverse a word \n3: Exit Program");
 		
 		String num = scan.nextLine();
 		
@@ -39,32 +39,37 @@ public class menu {
 			break;
 		case "2":
 			// Logic to reverse a word
+			stringReverse();
 			break;
-		case "3": 
-			// Logic to get area of a square
-			break;
-		case "4":
+		case "3":
 			// logic to exit
-			proceed = false
+			proceed = false;
 			System.out.println("Thanks for using the application!");
 			break;
 		default:
-			showMenu();
+			System.out.println("You've input an invalid choice");
+			returnToMenu();
 		}
 	}
-	public static randomNum() {
-		double randNum = Math.random() + 1;
+	
+	public static void randomNum() {
+		int randNum = (int)(Math.random() * 100) + 1 ;
 		System.out.println(randNum);
-		showMenu();
+		returnToMenu();
 	}
-	public static stringReverse() {
+	
+	public static void stringReverse() {
 		System.out.println("What is the word you want to reverse?");
-		StringBuilder input = scan.nextLine();
-		System.out.println("Your word reversed is " + input.reverse(input));
+		String input = scan.nextLine();
+		StringBuilder sb = new StringBuilder(input);
+		System.out.println("Your word reversed is " + sb.reverse());
+		returnToMenu();
+	}
+	
+	public static void returnToMenu() {
 		System.out.println("Press any key to continue");
-		String btn = scan.nextLine();
+		scan.nextLine();
 		showMenu();
-		
 	}
 
 }
