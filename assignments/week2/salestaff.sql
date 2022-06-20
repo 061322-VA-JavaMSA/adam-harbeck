@@ -1,13 +1,13 @@
 CREATE table office(
-Id serial primary key,
-Street varchar(30),
-City varchar(30),
-State varchar(15),
-Zip integer 
+id serial primary key,
+street varchar(30),
+city varchar(30),
+state varchar(15),
+zip integer 
 );
 
 CREATE table customer(
-Id serial primary key,
+id serial primary key,
 );
 
 CREATE table salestaff(
