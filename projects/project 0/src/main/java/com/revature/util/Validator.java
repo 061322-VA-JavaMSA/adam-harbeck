@@ -4,22 +4,20 @@ package com.revature.util;
 public class Validator {
 	
 	
-	public static String validateUsername(String uname) {
-		if(uname == null) {
-			System.out.println("Username cannot be blank.");
-			// Need to call the method that will show the login screen
+	public static boolean validateUsername(String uname) {
+		if(uname.isEmpty()) {
+			return false;
 		} 
 
-		return uname;
+		return true;
 	}
 	
-	public static String validatePassword(String pass) {
-		if(pass == null) {
-			System.out.println("Password cannot be blank.");
-			// Call method to show login screen
+	public static boolean validatePassword(String pass) {
+		if(pass.isEmpty()) {
+			return false;
 		}
 
-		return pass;
+		return true;
 	}
 	
 }
