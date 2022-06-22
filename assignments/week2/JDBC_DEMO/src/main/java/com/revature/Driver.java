@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.revature.exceptions.LoginException;
+import com.revature.models.Task;
 import com.revature.models.User;
 import com.revature.services.AuthService;
+import com.revature.services.TaskService;
 import com.revature.services.UserService;
 
 
@@ -15,6 +17,7 @@ public class Driver {
 	static Scanner scan;
 	static AuthService as;
 	static UserService us;
+	static TaskService ts;
 	
 	public static void main(String[] args) {
 
@@ -23,6 +26,7 @@ public class Driver {
 		// Creates new instances of Auth and User services to be used
 		as = new AuthService(); // Gives us the login() method
 		us = new UserService(); // Gives us getUsers() and createUser()
+		ts = new TaskService();
 		
 		// Declare and define String variables for catching user input
 		String username = null;
@@ -44,6 +48,7 @@ public class Driver {
 			e.printStackTrace();
 			
 		}
+		
 		// Calls the getUsers method is UserService
 		List<User> users = us.getUsers(); 
 		for(User u : users ) {
@@ -63,6 +68,13 @@ public class Driver {
 		 // Calls the crateUser method in UserService and passes in the new User defined above as a parameter.
 		System.out.println(us.createUser(userTBC));
 		
+		
+		System.out.println("What user ID to get tasks?");
+		int userId = Integer.parseInt(scan.nextLine());
+		List<Task> tasksForUser = ts.getTaskByUserId(userId);
+		for(Task t : tasksForUser) {
+			System.out.println(t);
+		}
 		// Closes the Scanner resource we started at the beginning of the application
 		scan.close();
 		

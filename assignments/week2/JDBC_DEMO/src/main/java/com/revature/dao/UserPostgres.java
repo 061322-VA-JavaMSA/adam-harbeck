@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class UserPostgres implements UserDao {
 		String sql = "insert into users (username, password) values (? , ?) returning id;";
 		
 		// Try-catch block with resources. Calls on the ConnectionUtil methods to create a connection
-		try(Connection c = ConnectionUtil.getHardCodedConnection()) {
+		try(Connection c = ConnectionUtil.getConnectionFromFile()) {
 			// Since we are taking in user input, a PreparedStatement is used.
 			PreparedStatement ps = c.prepareStatement(sql);
 			// Calls on the '?'s in the String sql above. The number is the number of the '?' and the second parameter is the value used.
@@ -33,6 +34,8 @@ public class UserPostgres implements UserDao {
 				u.setId(rs.getInt("id"));
 			}
 			
+		} catch (IOException i) {
+			i.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -48,7 +51,7 @@ public class UserPostgres implements UserDao {
 		User user = null;
 		
 		// Try-catch block with resources. Calls on the ConnectionUtil methods to create a connection
-		try(Connection c = ConnectionUtil.getHardCodedConnection()){
+		try(Connection c = ConnectionUtil.getConnectionFromFile()){
 			// Since we are taking in user input, a PreparedStatement is used.
 			PreparedStatement ps = c.prepareStatement(sql);
 			
@@ -65,6 +68,8 @@ public class UserPostgres implements UserDao {
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
 			}
+		} catch (IOException i) {
+			i.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +86,7 @@ public class UserPostgres implements UserDao {
 		List<User> users = new ArrayList<>();
 
 		// Try-catch block with resources. Calls on the ConnectionUtil methods to create a connection
-		try(Connection c = ConnectionUtil.getHardCodedConnection()){
+		try(Connection c = ConnectionUtil.getConnectionFromFile()){
 			// Not taking in user input which is why this is fine as a Statement and not a PreparedStatement
 			Statement s = c.createStatement();
 			
@@ -97,6 +102,8 @@ public class UserPostgres implements UserDao {
 				
 				users.add(u);
 			}
+		} catch (IOException i) {
+			i.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -111,7 +118,7 @@ public class UserPostgres implements UserDao {
 		String sql = "select * from users where username  = ?;";
 		User u = null;
 		
-		try (Connection c = ConnectionUtil.getHardCodedConnection();){
+		try (Connection c = ConnectionUtil.getConnectionFromFile()){
 			// Since we are taking in user input, a PreparedStatement is used.
 			PreparedStatement ps = c.prepareStatement(sql);
 			
@@ -129,8 +136,9 @@ public class UserPostgres implements UserDao {
 				u.setPassword(rs.getString("password"));
 			}
 			
+		} catch (IOException i) {
+			i.printStackTrace();
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 		
@@ -147,7 +155,7 @@ public class UserPostgres implements UserDao {
 		int rowsChanged = -1;
 		
 		// Try-catch block with resources. Calls on the ConnectionUtil methods to create a connection
-		try(Connection c = ConnectionUtil.getHardCodedConnection()){
+		try(Connection c = ConnectionUtil.getConnectionFromFile()){
 			// Since we are taking in user input, a PreparedStatement is used.
 			PreparedStatement ps = c.prepareStatement(sql);
 			
@@ -157,10 +165,11 @@ public class UserPostgres implements UserDao {
 			ps.setInt(3, u.getId());
 			
 			// Executes the statement and updates the table based on the sent values. Updates rowsChanged value
-			rowsChanged = ps.executeUpdate();
+			rowsChanged = ps.executeUpdate(); // Execute update returns the number of changed rows
 			
+		} catch (IOException i) {
+			i.printStackTrace();
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 		// Checks the value of rowsChanged
@@ -178,7 +187,7 @@ public class UserPostgres implements UserDao {
 		int rowsChanged = -1;
 		
 		// Try-catch block with resources. Calls on the ConnectionUtil methods to create a connection
-		try(Connection c = ConnectionUtil.getHardCodedConnection()){
+		try(Connection c = ConnectionUtil.getConnectionFromFile()){
 			// Since we are taking in user input, a PreparedStatement is used.
 			PreparedStatement ps = c.prepareStatement(sql);
 			// Sets the '?' in the String sql above to the value of the second parameter
@@ -186,8 +195,9 @@ public class UserPostgres implements UserDao {
 			
 			rowsChanged = ps.executeUpdate();
 			
+		} catch (IOException i) {
+			i.printStackTrace();
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		}
 
