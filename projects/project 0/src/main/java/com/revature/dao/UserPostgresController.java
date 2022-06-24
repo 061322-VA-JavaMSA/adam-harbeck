@@ -19,25 +19,29 @@ public class UserPostgresController implements UserDao{
 	}
 
 	@Override
-	public String getUserById(String uuid) {
+	public User getUserById(String uuid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String getByUsername(String username) {
-		String sql = "select * from users where username = ?";
-		User retrievedUser = null;
+	public User getByUsername(String username) {
+		String sql = "select * from shop_users where username = ?;";
+		User retrievedUser = new User();
 		try(Connection connect = ConnectionUtil.getConnection()) {
 			PreparedStatement prepedStatement = connect.prepareStatement(sql);
-			
 			prepedStatement.setString(1, username);
 			
 			ResultSet results = prepedStatement.executeQuery();
 			
 			while(results.next()) {
 				// Set the fields from user
-				retrievedUser = new User();
+				retrievedUser.setId(results.getObject("id", java.util.UUID.class));
+				retrievedUser.setFirstName(results.getString("first_name"));
+				retrievedUser.setLastName(results.getString("last_name"));
+				retrievedUser.setUsername(results.getString("username"));
+				retrievedUser.setPassword(results.getString("password"));
+				retrievedUser.setRoleId(results.getInt("shop_role_id"));
 			}
 			
 			
@@ -46,8 +50,9 @@ public class UserPostgresController implements UserDao{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 
-		return null;
+		return retrievedUser;
 	}
 
 	@Override

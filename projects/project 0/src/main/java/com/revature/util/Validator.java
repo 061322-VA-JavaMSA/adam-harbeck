@@ -20,4 +20,13 @@ public class Validator {
 		return true;
 	}
 	
+	public static boolean validateName(String first, String last) {
+		
+		if(!first.matches("^[a-zA-Z]+$") || !last.matches("^[a-zA-Z]+$")) {
+			return false;
+		}
+		
+		return true;
+	}
+	
 }

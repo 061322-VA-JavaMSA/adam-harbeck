@@ -18,8 +18,8 @@ public interface UserDao {
 	 */
 	
 	List<User> getAllUsers();
-	String getUserById(String uuid);
-	String getByUsername(String username);
+	User getUserById(String uuid);
+	User getByUsername(String username);
 	User createNewUser(User newUser);
 	boolean updateUser(User userToUpdate);
 	boolean deleteUser(User uuid);

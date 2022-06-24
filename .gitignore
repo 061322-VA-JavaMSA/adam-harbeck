@@ -114,6 +114,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 connection.properties
 
+
 # Eclipse m2e generated files
 # Eclipse Core
 .project

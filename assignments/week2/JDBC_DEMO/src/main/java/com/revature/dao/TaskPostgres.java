@@ -8,12 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import com.revature.models.Task;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
 public class TaskPostgres implements TaskDao{
 
+	private static Logger log = LogManager.getLogger(TaskPostgres.class);
+	
 	@Override
 	public Task createTask(Task t) {
 		// TODO Auto-generated method stub

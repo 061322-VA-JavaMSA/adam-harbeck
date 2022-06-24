@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class ConnectionUtil {
 
-	private static Connection connection;
+	private static Connection connect;
 	
 	public static Connection getConnection() throws SQLException, IOException{
 		// Creating a new Properties object that represents a persistent set of properties.
@@ -24,11 +24,11 @@ public class ConnectionUtil {
 		String password = props.getProperty("password");
 		
 		// Checking if a connection is not instantiated or is closed. 
-		if(connection == null || connection.isClosed()) {
+		if(connect == null || connect.isClosed()) {
 			// Retrieves the connection to the database sending the parameters to access the DB.
-			DriverManager.getConnection(url, username, password);
+			connect = DriverManager.getConnection(url, username, password);
 		}
 		
-		return connection;
+		return connect;
 	}
 }

@@ -3,6 +3,10 @@ package com.revature;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+
 import com.revature.exceptions.LoginException;
 import com.revature.models.Task;
 import com.revature.models.User;
@@ -18,6 +22,8 @@ public class Driver {
 	static AuthService as;
 	static UserService us;
 	static TaskService ts;
+	
+	private static Logger log = LogManager.getLogger(Driver.class);
 	
 	public static void main(String[] args) {
 
@@ -42,9 +48,12 @@ public class Driver {
 		// 
 		try {
 			// Calls AuthService and uses the Login methods to check the user credentials
+			log.info(as.login(username, password));
 			System.out.println(as.login(username, password)); 
 		} catch (LoginException e) {
 			System.out.println("Invalid Credentials");
+			log.error("Login exception was thrown: " + e.fillInStackTrace());
+			
 			e.printStackTrace();
 			
 		}
@@ -54,7 +63,6 @@ public class Driver {
 		for(User u : users ) {
 			System.out.println(u);
 		}
-		
 		
 		System.out.println("Create username: ");
 		String uname = scan.nextLine();
@@ -67,6 +75,7 @@ public class Driver {
 		userTBC.setPassword(pass);
 		 // Calls the crateUser method in UserService and passes in the new User defined above as a parameter.
 		System.out.println(us.createUser(userTBC));
+		log.info(us.createUser(userTBC));
 		
 		
 		System.out.println("What user ID to get tasks?");
