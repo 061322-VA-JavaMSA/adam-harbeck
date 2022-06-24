@@ -3,6 +3,7 @@ package com.revature.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.revature.exceptions.AuthException;
@@ -71,61 +72,63 @@ public class Screens {
 		}
 		
 
-//		switch(u.getRoleId()) {
-//		case 1:
-//			// This will go to the CustomerScreen
-//			break;
-//		case 2:
-//			// This will go to the EmployeeScreen
-//			break;
-//		case 3:
-//			// This will go to the ManagerScreen
-//			break;
-//		}
+		switch(u.getRoleId()) {
+		case 1:
+			// This will go to the CustomerScreen
+			try {
+				UserScreens.customerScreen(u);
+			} catch (SQLException | IOException e) {
+				
+				e.printStackTrace();
+			}
+			break;
+		case 2:
+			// This will go to the EmployeeScreen
+			try {
+				UserScreens.employeeScreen(u);
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case 3:
+			// This will go to the ManagerScreen
+			UserScreens.managerScreen(u);
+			break;
+		}
 		
 	}
 	
 	public static void registerScreen() throws IOException{
 		System.out.println(breaker);
 		
-		/*
-		 	Capturing:
-			 	First name
-			 	Last name
-			 	Username
-			 	Password
-		 */
 		User u = new User();
 		System.out.println("What is your first name?");
 		u.setFirstName(bufferReader.readLine());
-
 		System.out.println("What is your last name?");
 		u.setLastName(bufferReader.readLine());
 		System.out.println("Enter a username:");
 		u.setUsername(bufferReader.readLine());
 		System.out.println("Enter a password");
 		u.setPassword(bufferReader.readLine());
-		System.out.println("Enter your password again");
-		String password2 = bufferReader.readLine();
-		
 		
 		userServ.createUser(u);
+		
+		try {
+			UserScreens.customerScreen(u);
+		} catch (SQLException | IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
-	public static void customerScreen() {
-		
-	}
+
 	
-	public static void managerScreen() {
-		
-	}
-	
-	public static void employeeScreen() {
-		
-	}
+
 	
 	
 	public static void exit() {
+		System.out.println("\n\n\n\n\n");
 		System.out.println("Thanks for shopping at The EV Shop!");
 	}
 }

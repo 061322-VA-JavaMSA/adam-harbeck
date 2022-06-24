@@ -1,6 +1,8 @@
 package com.revature.dao;
 
 import java.util.List;
+import java.util.UUID;
+
 import com.revature.models.User;
 
 public interface UserDao {
@@ -18,10 +20,10 @@ public interface UserDao {
 	 */
 	
 	List<User> getAllUsers();
-	User getUserById(String uuid);
+	User getUserById(UUID uuid);
 	User getByUsername(String username);
 	User createNewUser(User newUser);
 	boolean updateUser(User userToUpdate);
-	boolean deleteUser(User uuid);
+	boolean deleteUser(UUID uuid);
 	
 }
