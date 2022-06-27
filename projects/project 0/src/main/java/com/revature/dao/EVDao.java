@@ -27,9 +27,9 @@ public interface EVDao {
 	EV createNewEV(EV newEv);
 	List<EV> getAllEVs();
 	List<EV> getAvailableEVs();
-	List<EV> getOwnedEVs();
+	List<EV> getOwnedEVs(UUID uuid);
 	EV getEVByModel(String modelName);
-	EV getEVById(EV evById);
+	EV getEVById(UUID evById);
 	boolean updateEV(EV evToUpdate);
 	boolean deleteEV(UUID uuid);
 }

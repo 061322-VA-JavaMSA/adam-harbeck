@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-
+import com.revature.models.EV;
 import com.revature.models.User;
 import com.revature.services.AuthService;
+import com.revature.services.EVService;
 import com.revature.services.UserService;
 
 public class UserScreens {
@@ -19,21 +20,31 @@ public class UserScreens {
 	static String breaker = "\n------------------------\n";
 	static AuthService authServ = new AuthService();
 	static UserService userServ = new UserService();
+	static EVService evServ = new EVService();
 	static BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 	
 	public static void customerScreen(User u) throws SQLException, IOException {
 		System.out.println("Customer Screen");
-		System.out.println(breaker + "1: View available EVs \n2:View your EVs \n3: View remaining payments \n4: Update profile \n5: Logout \n6: Exit");
+		System.out.println(breaker + "1: View available EVs \n2: View your EVs \n3: View remaining payments \n4: Update profile \n5: Logout \n6: Exit");
 		int choice = scan.nextInt();
 		
 		switch(choice) {
 		case 1:
 			// View available EVs - those w/o a user_id - able to make an offer
-			
+			List<EV> available = evServ.availableEVs();
+			EVScreens.listScreen(available, "Available EVs", u );
 			break;
 		case 2:
-			// View owned EVs - those with user's user_id
-			
+			// CAUSES AN EXCEPTION
+			List<EV> owned = evServ.ownedEVs(u.getId());
+			if (owned.size() == 0) {
+				System.out.println("You don't own any EVs");
+				System.out.println("Enter any key to retrun to the menu.");
+				scan.nextLine();
+				customerScreen(u);
+			} else {
+				EVScreens.listScreen(owned, "Owned EVs", u);
+			}
 			break;
 		case 3:
 			// View remaining payments
@@ -60,7 +71,9 @@ public class UserScreens {
 			// Exit the program
 			Screens.exit();
 			break;
-
+		default:
+			System.out.println("Only enter numbers 1 - 6.");
+			customerScreen(u);
 		}
 	}
 	public static void employeeScreen(User u) throws SQLException, IOException {
@@ -72,7 +85,8 @@ public class UserScreens {
 		
 		switch(choice) {
 		case 1:
-			// Add an item - create a new EV
+			// Add an item - create a new EV -- might have to pass the USER to come back.
+			EVScreens.createEVScreen();
 			break;
 		case 2:
 			// Pending offers - accept or reject (could be the same if they accept and just have a)

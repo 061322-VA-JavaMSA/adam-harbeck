@@ -29,8 +29,8 @@ brand varchar(15) not null,
 model varchar(20) not null,
 v_range integer not null,
 v_type_id integer references vehicle_types(id) not null,
-shop_user_id uuid references shop_users(id) null,
-final_price decimal null
+shop_user_id uuid references shop_users(id) default null,
+final_price decimal default null
 );
 
 drop table if exists offers;
@@ -73,7 +73,7 @@ insert into evs (id, brand, model, v_range, v_type_id) values ('1a63cac0-ebdc-4a
 insert into evs (id, brand, model, v_range, v_type_id) values ('363f4f2d-f613-4087-9cd2-98f0875350ef', 'Honda', 'Prologue', 300, 3);
 insert into evs (id, brand, model, v_range, v_type_id) values ('8e93d9f4-e87d-4f73-89d3-0f0b70611792', 'Indi', 'One', 230, 3);
 insert into evs (id, brand, model, v_range, v_type_id) values ('b971eda8-42c0-4e24-89ba-7a636d52ac67', 'Kia', 'EV6', 232, 3);
-insert into evs (id, brand, model, v_range, v_type_id) values ('7b24efdb-9153-41d8-9406-a1de506cb33a', 'Kia', 'Niro', 253, 3);
+insert into evs (id, brand, model, v_range, v_type_id, shop_user_id, final_price) values ('7b24efdb-9153-41d8-9406-a1de506cb33a', 'Kia', 'Niro', 253, 3, '5bbe28df-e4c9-4aba-89f2-2d241d2ff30d', 32100.00);
 insert into evs (id, brand, model, v_range, v_type_id) values ('96939baa-b651-4dcc-ac37-f3ac0ca92206', 'Lexus', 'RZ', 225, 3);
 insert into evs (id, brand, model, v_range, v_type_id) values ('dc0a4a89-7af2-45e7-b647-7ef55c2dd33b', 'Lucid', 'Air', 400, 1);
 insert into evs (id, brand, model, v_range, v_type_id) values ('98a04b6f-cc36-411c-a2b4-31cb39ce7f9e', 'Polestar', '3', 372, 3);
@@ -98,4 +98,11 @@ update shop_users set first_name = ?, last_name = ?, username = ?, password = ? 
 -- Delete a user
 delete from shop_users where id = '0391140f-e968-40cb-b850-3e472b42b915';
 
+-- -- EV Commands -- --
+-- Get all EVs -- possibly need a join to see the actual vehicle type and not the id 
+select * from evs;
+-- Get all available EVs
+select * from evs where shop_user_id is null;
+-- Get all owned EVs
+select * from evs where shop_user_id= '5bbe28df-e4c9-4aba-89f2-2d241d2ff30d';
 

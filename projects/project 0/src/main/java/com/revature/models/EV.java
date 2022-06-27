@@ -10,7 +10,7 @@ public class EV {
 	private String model;
 	private int range;
 	private int vehicleTypeId;
-	private UUID shop_user_id;
+	private UUID shopUserId;
 	private double finalPrice;
 	
 	
@@ -44,11 +44,11 @@ public class EV {
 	public void setVehicleTypeId(int vehicleTypeId) {
 		this.vehicleTypeId = vehicleTypeId;
 	}
-	public UUID getShop_user_id() {
-		return shop_user_id;
+	public UUID getShopUserId() {
+		return shopUserId;
 	}
-	public void setShop_user_id(UUID shop_user_id) {
-		this.shop_user_id = shop_user_id;
+	public void setShopUserId(UUID userId) {
+		this.shopUserId = userId;
 	}
 	public double getFinalPrice() {
 		return finalPrice;
@@ -56,10 +56,9 @@ public class EV {
 	public void setFinalPrice(double finalPrice) {
 		this.finalPrice = finalPrice;
 	}
-	
 	@Override
 	public int hashCode() {
-		return Objects.hash(brand, finalPrice, id, model, range, shop_user_id, vehicleTypeId);
+		return Objects.hash(brand, finalPrice, id, model, range, shopUserId, vehicleTypeId);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -73,14 +72,15 @@ public class EV {
 		return Objects.equals(brand, other.brand)
 				&& Double.doubleToLongBits(finalPrice) == Double.doubleToLongBits(other.finalPrice)
 				&& Objects.equals(id, other.id) && Objects.equals(model, other.model) && range == other.range
-				&& Objects.equals(shop_user_id, other.shop_user_id) && vehicleTypeId == other.vehicleTypeId;
+				&& Objects.equals(shopUserId, other.shopUserId) && vehicleTypeId == other.vehicleTypeId;
 	}
-	
 	@Override
 	public String toString() {
 		return "EV [id=" + id + ", brand=" + brand + ", model=" + model + ", range=" + range + ", vehicleTypeId="
-				+ vehicleTypeId + ", shop_user_id=" + shop_user_id + ", finalPrice=" + finalPrice + "]";
+				+ vehicleTypeId + ", shopUserId=" + shopUserId + ", finalPrice=" + finalPrice + "]";
 	}
+	
+
 	
 	
 }
