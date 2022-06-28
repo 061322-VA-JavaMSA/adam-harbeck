@@ -1,25 +1,24 @@
 package com.revature.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 import com.revature.models.EV;
 import com.revature.models.User;
 import com.revature.services.EVService;
 
 public class EVScreens {
-	/*
-	  What screens are needed?
-	  - Screen that displays a list of items (get all, get available, get owned)
-	  - Screen that displays an item
-	 
-	 */
+
 	
 	static String breaker = "\n------------------------\n";
 	static Scanner scan = new Scanner(System.in);
 	static EVService evServ = new EVService();
+	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	
 	public static void listScreen(List<EV> evs, String listType, User u) {
 		System.out.println(breaker);
@@ -30,8 +29,6 @@ public class EVScreens {
 			i++;
 		}
 		
-		// The user might want to choose an item. They would enter the number
-		// then I use that number to get the item and send it to the item screen
 		System.out.println("\n Choose a number or enter 00 to return to the menu.");
 		int choice = scan.nextInt();
 		switch(choice) {
@@ -80,14 +77,44 @@ public class EVScreens {
 		
 	}
 	
-	public static void createEVScreen() {
+	public static void createEVScreen() throws IOException{
 		// Will ask for all the details
 		EV newEv = new EV();
+		System.out.println("What is the brand name?");
+		newEv.setBrand(bf.readLine());
+		System.out.println("What is the model?");
+		newEv.setModel(bf.readLine());
+		System.out.println("What is the range?");
+		newEv.setRange(bf.read());
+		System.out.println("What is the vehicle type id?");
+		newEv.setVehicleTypeId(scan.nextInt());
+		
+
+		newEv = evServ.createEv(newEv);
+		if(newEv == null) {
+			System.out.println("Model is already in the shop.");
+		} 
+			
 		
 	}
 	
+	// Required when changing status to owned
 	public static void updateEVScreen() {
 		
+	}
+	
+	public static void deleteEv() {
+		System.out.println("Enter the ID of the EV you wish to remove:");
+		try {
+			UUID id = UUID.fromString(bf.readLine());
+			boolean gotDeleted = evServ.removeEV(id);
+			if(!gotDeleted) {
+				System.out.println("User id was not found.");
+			}
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 	
 	public static void returnToScreen(User u) {

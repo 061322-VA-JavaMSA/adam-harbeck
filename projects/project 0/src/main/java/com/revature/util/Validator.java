@@ -29,12 +29,6 @@ public class Validator {
 		return true;
 	}
 	
-	public static boolean validateName(String name) {
-		if(!name.matches("^[a-zA-Z]+$")) {
-			return false;
-		}
-		
-		return true;
-	}
+
 	
 }

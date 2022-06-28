@@ -12,6 +12,7 @@ import com.revature.models.EV;
 import com.revature.models.User;
 import com.revature.services.AuthService;
 import com.revature.services.EVService;
+import com.revature.services.PaymentService;
 import com.revature.services.UserService;
 
 public class UserScreens {
@@ -21,6 +22,7 @@ public class UserScreens {
 	static AuthService authServ = new AuthService();
 	static UserService userServ = new UserService();
 	static EVService evServ = new EVService();
+	static PaymentService payServ = new PaymentService();
 	static BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
 	
 	public static void customerScreen(User u) throws SQLException, IOException {
@@ -47,7 +49,7 @@ public class UserScreens {
 			}
 			break;
 		case 3:
-			// View remaining payments
+			// View remaining payments - get the last payment made per ev owned and display the newBalance
 			
 			break;
 		case 4:
@@ -80,22 +82,29 @@ public class UserScreens {
 
 		System.out.println("Employee Screen");
 		System.out.println(breaker);
-		System.out.println("1: Add an item \n2: Pending offers \n 3: Remove an item \n4: View payments \n5: Update profile \n6: Logout \n7: Exit");
+		System.out.println("1: Add an item \n2: Pending offers \n3: Remove an item \n4: View payments \n5: Update profile \n6: Logout \n7: Exit");
 		int choice = scan.nextInt();
 		
 		switch(choice) {
 		case 1:
 			// Add an item - create a new EV -- might have to pass the USER to come back.
 			EVScreens.createEVScreen();
+			employeeScreen(u);
 			break;
 		case 2:
 			// Pending offers - accept or reject (could be the same if they accept and just have a)
+			// NEEDS OFFERS
 			break;
 		case 3:
 			// Remove an item - remove an ev
+			EVScreens.deleteEv();
+			employeeScreen(u);
 			break;
 		case 4:
 			// View Payments - see all evs with a user_id
+			// DO I NEED A PAYMENT SCREEN?
+			payServ.getPayments();
+			
 			break;
 		case 5:
 			// Update Profile - updates profile

@@ -41,6 +41,16 @@ ev_id uuid references evs(id) not null,
 offer decimal not null
 );
 
+drop table if exists payments;
+create table if not exists payments(
+id uuid primary key,
+shop_user_id uuid references shop_users(id) not null,
+ev_id uuid references evs(id) not null,
+original_balance decimal not null,
+payment decimal not null,
+new_balance decimal not null
+);
+
 
 -- Data Manipulation
 -- -- Creating Roles

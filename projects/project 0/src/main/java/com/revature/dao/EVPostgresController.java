@@ -40,7 +40,12 @@ public class EVPostgresController implements EVDao{
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 			System.out.println("EV couldn't be added.");
-			EVScreens.createEVScreen();
+			try {
+				EVScreens.createEVScreen();
+			} catch (IOException e1) {
+
+				e1.printStackTrace();
+			}
 		}
 		return newEv;
 	}

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import com.revature.models.EV;
-import com.revature.util.Validator;
 import com.revature.dao.EVDao;
 import com.revature.dao.EVPostgresController;
 
@@ -16,25 +15,21 @@ public class EVService {
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	
 	public EV createEv(EV newEv) {
-		// Validate the spelling of the brand
-		boolean onlyLetters = Validator.validateName(newEv.getBrand());
-		
-		if(!onlyLetters) {
-			System.out.println("Brand can only be letters.");
-			
+
+		// Check if a model and brand exists already
+		EV dbCheck = evByModel(newEv.getModel());
+		if(dbCheck.getId() != null) {
+			System.out.println("This model already exists");
+			return null;
 		}
 		
+		newEv.setId(UUID.randomUUID());
 		
-		// Check if a model and brand exists already
-		
+		eDao.createNewEV(newEv);
 		
 		return newEv;
 	}
 	
-	public List<EV> allEVs() {
-		return eDao.getAllEVs();
-		
-	} 
 	
 	public List<EV> availableEVs() {
 		return eDao.getAvailableEVs();
@@ -45,8 +40,9 @@ public class EVService {
 	} 
 	
 	public EV evByModel(String modelName) {
+		EV returnedEv = eDao.getEVByModel(modelName);
 		
-		return null;
+		return returnedEv;
 	}
 	
 	public EV evById(UUID uuid) {
@@ -60,8 +56,8 @@ public class EVService {
 	}
 	
 	public boolean removeEV(UUID uuid) {
+		boolean deleted = eDao.deleteEV(uuid);
 		
-		
-		return true;
+		return deleted;
 	}
 }
