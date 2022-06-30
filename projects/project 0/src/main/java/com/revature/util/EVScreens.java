@@ -15,21 +15,23 @@ import com.revature.services.EVService;
 public class EVScreens {
 
 	
-	static String breaker = "\n------------------------\n";
+	static String breaker = "\n\n\n\n------------------------\n";
 	static Scanner scan = new Scanner(System.in);
 	static EVService evServ = new EVService();
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	
 	public static void listScreen(List<EV> evs, String listType, User u) {
 		System.out.println(breaker);
-		System.out.println(listType);
+		System.out.println(listType + ":\n\n");
 		int i = 1;
+
 		for(EV elec : evs) {
-			System.out.println(i + ": " + elec);
+			String toPrint = i + ": Brand: " + elec.getBrand() + " | Model: " + elec.getModel() + " | Range: " + elec.getRange();
+			System.out.println(toPrint);
 			i++;
 		}
 		
-		System.out.println("\n Choose a number or enter 00 to return to the menu.");
+		System.out.println("\n~~~~~~~~~~~\nChoose a number or enter 00 to return to the menu.");
 		int choice = scan.nextInt();
 		switch(choice) {
 			case 00:
@@ -49,7 +51,9 @@ public class EVScreens {
 	public static void itemScreen(EV elec, User u) {
 		// Sending in the list can cause problems if multiple people are using the application
 		// Shows a specific item
-		System.out.println(elec);
+		System.out.println(breaker);
+		System.out.println("Brand: " + elec.getBrand() + " | Model: " + elec.getModel() + " | Range: " + elec.getRange());
+		System.out.println("\n\n\n");
 		
 		// Make an offer, return to screen
 		System.out.println("1: Make an offer \n2: Return to list \n3: Return to the menu \n4: Exit");
@@ -57,6 +61,8 @@ public class EVScreens {
 		switch(choice) {
 		case 1:
 			// Goes to the offer screen
+			OfferScreen.makeOffer(elec, u);
+			
 			break;
 		case 2:
 			// Returns to the list
@@ -78,6 +84,8 @@ public class EVScreens {
 	}
 	
 	public static void createEVScreen() throws IOException{
+		System.out.println(breaker);
+		
 		// Will ask for all the details
 		EV newEv = new EV();
 		System.out.println("What is the brand name?");
@@ -85,7 +93,7 @@ public class EVScreens {
 		System.out.println("What is the model?");
 		newEv.setModel(bf.readLine());
 		System.out.println("What is the range?");
-		newEv.setRange(bf.read());
+		newEv.setRange(Integer.parseInt(bf.readLine()));
 		System.out.println("What is the vehicle type id?");
 		newEv.setVehicleTypeId(scan.nextInt());
 		
@@ -98,16 +106,13 @@ public class EVScreens {
 		
 	}
 	
-	// Required when changing status to owned
-	public static void updateEVScreen() {
-		
-	}
 	
 	public static void deleteEv() {
-		System.out.println("Enter the ID of the EV you wish to remove:");
+		System.out.println(breaker + "\nEnter the ID of the EV you wish to remove:");
 		try {
-			UUID id = UUID.fromString(bf.readLine());
-			boolean gotDeleted = evServ.removeEV(id);
+			String id = bf.readLine();
+			UUID toUUID = UUID.fromString(id);
+			boolean gotDeleted = evServ.removeEV(toUUID);
 			if(!gotDeleted) {
 				System.out.println("User id was not found.");
 			}

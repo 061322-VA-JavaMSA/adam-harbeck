@@ -10,11 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.models.EV;
 import com.revature.util.ConnectionUtil;
 import com.revature.util.EVScreens;
 
 public class EVPostgresController implements EVDao{
+	
+	private static Logger log = LogManager.getLogger(EVPostgresController.class);
 
 	@Override
 	public EV createNewEV(EV newEv) {
@@ -34,12 +39,13 @@ public class EVPostgresController implements EVDao{
 			ResultSet results = ps.executeQuery();
 			
 			if(results.next()) {
-				System.out.println("EV created");
+				log.info("A new user has been created");
 			}
 			
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 			System.out.println("EV couldn't be added.");
+			log.error("Exception has been thrown in createNewEV: " + e.fillInStackTrace());
 			try {
 				EVScreens.createEVScreen();
 			} catch (IOException e1) {
@@ -65,7 +71,7 @@ public class EVPostgresController implements EVDao{
 				newEv.setId(results.getObject("id", java.util.UUID.class));
 				newEv.setBrand(results.getString("brand"));
 				newEv.setModel(results.getString("model"));
-				newEv.setRange(results.getInt("range"));
+				newEv.setRange(results.getInt("v_range"));
 				newEv.setVehicleTypeId(results.getInt("v_type_id"));
 				newEv.setShopUserId(results.getObject("shop_user_id", java.util.UUID.class));
 				newEv.setFinalPrice(results.getDouble("final_price"));
@@ -74,6 +80,7 @@ public class EVPostgresController implements EVDao{
 			}
 			
 		} catch (SQLException | IOException e) {
+			log.error("Exception was thrown in getAllEVs: " + e.fillInStackTrace());
 			e.printStackTrace();
 		} 
 		
@@ -104,6 +111,7 @@ public class EVPostgresController implements EVDao{
 			}
 			
 		} catch (SQLException | IOException e) {
+			log.error("Exception was thrown in getAvailableEvs: " + e.fillInStackTrace());
 			e.printStackTrace();
 		} 
 		
@@ -119,14 +127,14 @@ public class EVPostgresController implements EVDao{
 			PreparedStatement s = connect.prepareStatement(sql);
 			s.setObject(1, uuid);
 			
-			ResultSet results = s.executeQuery(sql);
+			ResultSet results = s.executeQuery();
 			
 			while(results.next()) {
 				EV newEv = new EV();
 				newEv.setId(results.getObject("id", java.util.UUID.class));
 				newEv.setBrand(results.getString("brand"));
 				newEv.setModel(results.getString("model"));
-				newEv.setRange(results.getInt("range"));
+				newEv.setRange(results.getInt("v_range"));
 				newEv.setVehicleTypeId(results.getInt("v_type_id"));
 				newEv.setShopUserId(results.getObject("shop_user_id", java.util.UUID.class));
 				newEv.setFinalPrice(results.getDouble("final_price"));
@@ -135,7 +143,7 @@ public class EVPostgresController implements EVDao{
 			}
 			
 		} catch (SQLException | IOException e) {
-			// GETTING AN EXCEPTION WHEN THE USER DOESNT HAVE AN EV
+			log.error("Exception was thrown in getOwnedEvs: " + e.fillInStackTrace());
 			e.printStackTrace();
 		} 
 		
@@ -158,7 +166,7 @@ public class EVPostgresController implements EVDao{
 				retrievedEV.setId(results.getObject("id", java.util.UUID.class));
 				retrievedEV.setBrand(results.getString("brand"));
 				retrievedEV.setModel(results.getString("model"));
-				retrievedEV.setRange(results.getInt("range"));
+				retrievedEV.setRange(results.getInt("v_range"));
 				retrievedEV.setVehicleTypeId(results.getInt("v_type_id"));
 				retrievedEV.setShopUserId(results.getObject("shop_user_id", java.util.UUID.class));
 				retrievedEV.setFinalPrice(results.getDouble("final_price"));
@@ -166,6 +174,7 @@ public class EVPostgresController implements EVDao{
 			
 			
 		} catch (SQLException | IOException e) {
+			log.error("Exception was thrown in getEVByModel: " + e.fillInStackTrace());
 			e.printStackTrace();
 		}
 		
@@ -189,7 +198,7 @@ public class EVPostgresController implements EVDao{
 				retrievedEV.setId(evById);
 				retrievedEV.setBrand(results.getString("brand"));
 				retrievedEV.setModel(results.getString("model"));
-				retrievedEV.setRange(results.getInt("range"));
+				retrievedEV.setRange(results.getInt("v_range"));
 				retrievedEV.setVehicleTypeId(results.getInt("v_type_id"));
 				retrievedEV.setShopUserId(results.getObject("shop_user_id", java.util.UUID.class));
 				retrievedEV.setFinalPrice(results.getDouble("final_price"));
@@ -197,6 +206,7 @@ public class EVPostgresController implements EVDao{
 			
 			
 		} catch (SQLException | IOException e) {
+			log.error("Exception was thrown in getEVById: " + e.fillInStackTrace());
 			e.printStackTrace();
 		}
 		
@@ -205,7 +215,7 @@ public class EVPostgresController implements EVDao{
 
 	@Override
 	public boolean updateEV(EV evToUpdate) {
-		String sql = "update evs set brand = ?, model = ?, v_range = ?, v_type_id = ?, shop_user_id = ?, final_price =?;";
+		String sql = "update evs set brand = ?, model = ?, v_range = ?, v_type_id = ?, shop_user_id = ?, final_price =? where id = ?;";
 		int rowsUpdated = -1;
 		
 		try (Connection connect = ConnectionUtil.getConnection()) {
@@ -217,17 +227,18 @@ public class EVPostgresController implements EVDao{
 			ps.setInt(4, evToUpdate.getVehicleTypeId());
 			ps.setObject(5, evToUpdate.getShopUserId());
 			ps.setDouble(6, evToUpdate.getFinalPrice());
-			
+			ps.setObject(7, evToUpdate.getId());
 			rowsUpdated = ps.executeUpdate();
 			
 		} catch (SQLException | IOException e) {
+			log.error("Exception was thrown in updateEV: " + e.fillInStackTrace());
 			e.printStackTrace();
 		}
 		
 		if(rowsUpdated < 1) {
 			return false;
 		}
-		
+		log.info("EV with id: " + evToUpdate.getId() + " was updated.");
 		return true;
 	}
 
@@ -243,16 +254,15 @@ public class EVPostgresController implements EVDao{
 			
 			rowChanged = preppedStatement.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
+			log.error("Exception was thrown in deleteEV: " + e.fillInStackTrace());
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} 
 
 		if(rowChanged < 1) {
 			return false;
 		}
-		
+		log.info("EV with id: " + uuid + " has been deleted.");
 		return true;
 	}
 

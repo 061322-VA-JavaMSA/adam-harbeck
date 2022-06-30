@@ -1,0 +1,1 @@
+16:26:22 [main] ERROR com.revature.util.Screens - AuthException was thrown in loginScreen: com.revature.exceptions.AuthException

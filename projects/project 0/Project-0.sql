@@ -30,7 +30,8 @@ model varchar(20) not null,
 v_range integer not null,
 v_type_id integer references vehicle_types(id) not null,
 shop_user_id uuid references shop_users(id) default null,
-final_price decimal default null
+final_price decimal default null,
+remaining_balance decimal default null
 );
 
 drop table if exists offers;
@@ -83,7 +84,7 @@ insert into evs (id, brand, model, v_range, v_type_id) values ('1a63cac0-ebdc-4a
 insert into evs (id, brand, model, v_range, v_type_id) values ('363f4f2d-f613-4087-9cd2-98f0875350ef', 'Honda', 'Prologue', 300, 3);
 insert into evs (id, brand, model, v_range, v_type_id) values ('8e93d9f4-e87d-4f73-89d3-0f0b70611792', 'Indi', 'One', 230, 3);
 insert into evs (id, brand, model, v_range, v_type_id) values ('b971eda8-42c0-4e24-89ba-7a636d52ac67', 'Kia', 'EV6', 232, 3);
-insert into evs (id, brand, model, v_range, v_type_id, shop_user_id, final_price) values ('7b24efdb-9153-41d8-9406-a1de506cb33a', 'Kia', 'Niro', 253, 3, '5bbe28df-e4c9-4aba-89f2-2d241d2ff30d', 32100.00);
+insert into evs (id, brand, model, v_range, v_type_id, shop_user_id, final_price, remaining_balance) values ('7b24efdb-9153-41d8-9406-a1de506cb33a', 'Kia', 'Niro', 253, 3, '5bbe28df-e4c9-4aba-89f2-2d241d2ff30d', 32100.00, 30000.00);
 insert into evs (id, brand, model, v_range, v_type_id) values ('96939baa-b651-4dcc-ac37-f3ac0ca92206', 'Lexus', 'RZ', 225, 3);
 insert into evs (id, brand, model, v_range, v_type_id) values ('dc0a4a89-7af2-45e7-b647-7ef55c2dd33b', 'Lucid', 'Air', 400, 1);
 insert into evs (id, brand, model, v_range, v_type_id) values ('98a04b6f-cc36-411c-a2b4-31cb39ce7f9e', 'Polestar', '3', 372, 3);
@@ -94,19 +95,30 @@ insert into evs (id, brand, model, v_range, v_type_id) values ('c34bb493-79b3-46
 insert into evs (id, brand, model, v_range, v_type_id) values ('989d438c-02be-4e4a-bd68-5a17f132048e', 'VinFast', 'VF8', 260, 3);
 insert into evs (id, brand, model, v_range, v_type_id) values ('532ccae3-ebee-4fc3-be0c-40cb6c26c41f', 'Volvo', 'C40-Recharge', 220, 3);
 
+-- -- Creating Payments
+insert into payments (id, shop_user_id, ev_id, original_balance, payment, new_balance) values ('d5b02d24-823d-4791-b299-e37df8dd2e6d', '5bbe28df-e4c9-4aba-89f2-2d241d2ff30d', '7b24efdb-9153-41d8-9406-a1de506cb33a', 32100.00, 2100.00, 30000.00);
+
+-- -- Creating Offers
+insert into offers (id, shop_user_id, ev_id, offer) values ('6e83f560-8c2e-4d53-86c8-41ba429c94d9', '1e7fe41c-93bd-4cd6-83f1-ea6954922f8e', '363f4f2d-f613-4087-9cd2-98f0875350ef', 4900.00); -- prologue
+insert into offers (id, shop_user_id, ev_id, offer) values ('363a7e19-2b36-44a3-ab41-5265e088c0a3', '1ce0f881-7f25-47a3-a363-475e00ff8325', '363f4f2d-f613-4087-9cd2-98f0875350ef', 5800.00); -- prologue
+insert into offers (id, shop_user_id, ev_id, offer) values ('8ec22c43-7125-44d7-ac01-7c16606f3659', '5bbe28df-e4c9-4aba-89f2-2d241d2ff30d', '7fcef724-2e4f-4330-b64e-1a0374651470', 8700.00); -- iX
+insert into offers (id, shop_user_id, ev_id, offer) values ('dbd83194-5769-4cf3-a435-426a12ec59c4', '1ce0f881-7f25-47a3-a363-475e00ff8325', '7fcef724-2e4f-4330-b64e-1a0374651470', 6400.00); -- iX
+
+
+
 -- -- User Commands -- ---
 -- Get a user by username
-select * from shop_users where username = 'aosinin4';
+select * from shop_users where username = ?;
 -- Get a user by id 
-select * from shop_users where id = '0391140f-e968-40cb-b850-3e472b42b915';
+select * from shop_users where id = ?;
 -- Get all users
 select * from shop_users;
 -- Create a new user
-insert into shop_users (id, first_name, last_name, username, password) values (?, ?, ?, ?, ?);
+insert into shop_users (id, first_name, last_name, username, password) values (?, ?, ?, ?, ?) returning id;
 -- Update a user
 update shop_users set first_name = ?, last_name = ?, username = ?, password = ? where id = ?;
 -- Delete a user
-delete from shop_users where id = '0391140f-e968-40cb-b850-3e472b42b915';
+delete from shop_users where id = ?;
 
 -- -- EV Commands -- --
 -- Get all EVs -- possibly need a join to see the actual vehicle type and not the id 
@@ -114,5 +126,48 @@ select * from evs;
 -- Get all available EVs
 select * from evs where shop_user_id is null;
 -- Get all owned EVs
-select * from evs where shop_user_id= '5bbe28df-e4c9-4aba-89f2-2d241d2ff30d';
+select * from evs where shop_user_id= ?;
+-- Get EV by model 
+select * from evs where model = ?;
+-- Get EV by id 
+select * from evs where id = ?;
+-- Create a new EV
+insert into evs (id, brand, model, v_range, v_type_id, shop_user_id, final_price) values (?, ?, ?, ?, ?, ?, ?) returning id;
+-- Update EV
+update evs set brand = ?, model = ?, v_range = ?, v_type_id = ?, shop_user_id = ?, final_price =? where id = ?;
+-- Delete EV
+delete from evs where id = ?;
+
+
+-- -- Payment Commands -- --
+-- Get all payments
+select * from payments order by shop_user_id;
+-- Get payment by id
+select * from evs where shop_user_id = ? AND remaining_balance > 0;
+
+
+
+-- -- Offer Commands -- --
+-- Get max offer
+select max(offer) as offer from offers where ev_id = '363f4f2d-f613-4087-9cd2-98f0875350ef';
+-- Get all offers
+select o.id, o.offer,e.id as ev_id, e.brand, e.model, s.id as shop_user_id, s.username  from offers as o join evs as e on ev_id = e.id join shop_users s on o.shop_user_id = s.id;
+-- Create new offer
+insert into offers (id, shop_user_id, ev_id, offer) values (?, ?, ?, ?) returning id;
+-- Get offer by EV id
+select * from offers where ev_id = ?;
+-- Get offer by id
+select * from offers where id = ?;
+-- Delete an offer
+delete from offers where id = ?;
+
+
+
+
+
+
+
+
+
+
 

@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.exceptions.AuthException;
 import com.revature.models.User;
 import com.revature.services.AuthService;
@@ -17,16 +20,17 @@ public class Screens {
 	static AuthService authServ = new AuthService();
 	static UserService userServ = new UserService();
 	static BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
+	private static Logger log = LogManager.getLogger(Screens.class);
 	
 	public static void welcomeScreen() {
-		System.out.println("Would you like to:\n\n1. Login\n2. Register\n3. Exit");
+		System.out.println("Would you like to:\n\n1: Login\n2: Register\n3: Exit");
 		int option = scan.nextInt();
 		
 		switch(option) {
 		case 1:
 			try {
 				loginScreen();
-			} catch (IOException e) {
+			} catch (AuthException | IOException e) {
 
 				e.printStackTrace();
 			}
@@ -48,7 +52,7 @@ public class Screens {
 		}
 	}
 	
-	public static void loginScreen() throws IOException{
+	public static void loginScreen() throws IOException, AuthException{
 		System.out.println(breaker);
 		
 		// BufferedReader was user over Scanner. Scanner.next doesn't allow null values, and Scanner.nextLine jumps to the end.
@@ -63,12 +67,15 @@ public class Screens {
 		// Calling the login method in AuthService. passing in the username and password
 		try {
 			u = authServ.login(username, password);
+			log.info("Successfully logged in.");
 		} catch (AuthException e) {
 			e.printStackTrace();
-			
+	
 			System.out.println("Incorrect username or password");
+			log.error("AuthException was thrown in loginScreen: " + e.fillInStackTrace());
 
 			loginScreen();
+			throw new AuthException();
 		}
 		
 
@@ -87,7 +94,7 @@ public class Screens {
 			try {
 				UserScreens.employeeScreen(u);
 			} catch (SQLException | IOException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 			break;
@@ -121,14 +128,12 @@ public class Screens {
 			e.printStackTrace();
 		}
 	}
-	
-
-	
 
 	
 	
 	public static void exit() {
 		System.out.println("\n\n\n\n\n");
 		System.out.println("Thanks for shopping at The EV Shop!");
+		log.info("Program exited.");
 	}
 }

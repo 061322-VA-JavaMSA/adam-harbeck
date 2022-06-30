@@ -16,14 +16,6 @@ public class User {
 	private int id;
 	private String username;
 	private String password;
-	
-	// Created a no-args constructor that calls on super() the parent class.
-	public User() {
-		super();
-		
-	}
-	
-	// Getters and Setters that get and set the value of our private fields for encapsulation.
 	public int getId() {
 		return id;
 	}
@@ -42,13 +34,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	// Overrides the hashCode()
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, password, username);
 	}
-	// Overrides the .equals() so it can check our variables content
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -60,12 +49,11 @@ public class User {
 		User other = (User) obj;
 		return id == other.id && Objects.equals(password, other.password) && Objects.equals(username, other.username);
 	}
-	// Overrides toString to return a value of the user and not an unreadable string.
 	@Override
 	public String toString() {
-		return "user [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
 	}
-	
+
 	
 	
 }

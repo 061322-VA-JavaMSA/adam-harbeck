@@ -45,15 +45,6 @@ public class EVService {
 		return returnedEv;
 	}
 	
-	public EV evById(UUID uuid) {
-		
-		return null;
-	}
-	
-	public boolean evUpdate(EV toUpdate) {
-		
-		return true;
-	}
 	
 	public boolean removeEV(UUID uuid) {
 		boolean deleted = eDao.deleteEV(uuid);

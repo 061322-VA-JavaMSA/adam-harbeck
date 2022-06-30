@@ -10,12 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 import com.revature.util.Screens;
 
 public class UserPostgresController implements UserDao{
-
+	private static Logger log = LogManager.getLogger(UserPostgresController.class);
+	
 	@Override
 	public List<User> getAllUsers() {
 		String sql = "select * from shop_users;";
@@ -39,12 +43,10 @@ public class UserPostgresController implements UserDao{
 				users.add(retrievedUser);
 			}
 			
-		} catch (SQLException s) { 
-			s.printStackTrace();
-		} catch (IOException i) {
-			i.printStackTrace();
+		} catch (SQLException | IOException e) { 
+			log.error("Excpetion was thrown in getAllUsers: " + e.fillInStackTrace());
+			e.printStackTrace();
 		} 
-		
 		return users;
 	}
 
@@ -69,15 +71,11 @@ public class UserPostgresController implements UserDao{
 			}
 			
 			
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (SQLException e) {
-
+		} catch (SQLException | IOException e) {
+			log.error("Excpetion was thrown in getAllUsers: " + e.fillInStackTrace());
 			e.printStackTrace();
 			System.out.println("No user with that ID.");
-			
-			
-		}
+		} 
 		
 
 		return retrievedUser;
@@ -104,9 +102,8 @@ public class UserPostgresController implements UserDao{
 			}
 			
 			
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
+			log.error("Excpetion was thrown in getByUsername: " + e.fillInStackTrace());
 			e.printStackTrace();
 		}
 		
@@ -130,12 +127,11 @@ public class UserPostgresController implements UserDao{
 			ResultSet results = preppedStatement.executeQuery();
 			
 			if(results.next()) {
-				System.out.println("Created user");
+				log.info("Created user");
 			}
 			
-		} catch(IOException i) {
-			i.printStackTrace();
-		} catch(SQLException e) {
+		} catch(SQLException | IOException e) {
+			log.error("Excpetion was thrown in createNewUser: " + e.fillInStackTrace());
 			e.printStackTrace();
 			
 			System.out.println("User couldn't be added");
@@ -162,6 +158,7 @@ public class UserPostgresController implements UserDao{
 			rowChanged = preppedStatement.executeUpdate();
 			
 		} catch (SQLException | IOException e) {
+			log.error("Excpetion was thrown in updateUser: " + e.fillInStackTrace());
 			e.printStackTrace();
 
 		}
@@ -169,7 +166,7 @@ public class UserPostgresController implements UserDao{
 		if(rowChanged < 1) {
 			return false;
 		}
-		
+		log.info("User with ID: " + userToUpdate.getId() + " was updated.");
 		return true;
 	}
 
@@ -185,16 +182,15 @@ public class UserPostgresController implements UserDao{
 			
 			rowChanged = preppedStatement.executeUpdate();
 			
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
+			log.error("Excpetion was thrown in deleteUser: " + e.fillInStackTrace());
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} 
 
 		if(rowChanged < 1) {
 			return false;
 		}
-		
+		log.info("user with ID: " + uuid + " was deleted.");
 		return true;
 	}
 

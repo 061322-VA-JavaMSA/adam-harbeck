@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.revature.dao.UserDao;
 import com.revature.dao.UserPostgresController;
 import com.revature.models.User;
@@ -16,6 +19,7 @@ public class UserService {
 
 	private UserDao uDao = new UserPostgresController();
 	static BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
+	private static Logger log = LogManager.getLogger(UserService.class);
 	
 	public List<User> getUsers() {
 		return uDao.getAllUsers();
@@ -27,6 +31,7 @@ public class UserService {
 		boolean onlyLetters = Validator.validateName(u.getFirstName(), u.getLastName());
 		// Checks the returned value from the validator and calls on the register screen if the user entered anything but letters.
 		if(!onlyLetters) {
+			log.warn("User didn't use only letters.");
 			System.out.println("Names can only be letters");
 			try {
 				Screens.registerScreen();
@@ -37,6 +42,7 @@ public class UserService {
 		// Validate that the username is not already in the DB
 		User dbCheck = uDao.getByUsername(u.getUsername());
 		if(dbCheck.getId() != null) {
+			log.warn("User entered a username already taken");
 			System.out.println("Username is already taken.");
 			try {
 				Screens.registerScreen();
