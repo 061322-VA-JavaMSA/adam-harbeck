@@ -1,5 +1,5 @@
 if(sessionStorage.getItem("principal")) {
-    window.location.href="../index.html"
+    window.location.href="./index.html"
 }
 
 document.getElementById('loginButton').addEventListener("click", login);
