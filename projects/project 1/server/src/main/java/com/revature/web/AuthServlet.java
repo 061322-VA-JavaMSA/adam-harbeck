@@ -60,4 +60,11 @@ public class AuthServlet extends HttpServlet{
 		
 		session.invalidate();
 	}
+	
+	// This fixes the preflight issue
+	@Override
+	protected void doOptions(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		Cors.addCorsHeader(req.getRequestURI(),res);
+		super.doOptions(req, res);
+	}
 }
