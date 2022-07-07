@@ -22,5 +22,14 @@
 		<servlet-name>auth-servlet</servlet-name>
 		<url-pattern>/auth</url-pattern>
 	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>ticket-servlet</servlet-name>
+		<servlet-class>com.revature.web.TicketServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ticket-servlet</servlet-name>
+		<url-pattern>/tickets</url-pattern>
+	</servlet-mapping>
 
 </web-app>
