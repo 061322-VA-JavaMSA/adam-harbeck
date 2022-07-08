@@ -15,4 +15,10 @@ public class TicketService {
 		
 		return tickets;
 	}
+	
+	public List<Ticket> getResolved() {
+		List<Ticket> tickets = td.getResolved();
+		
+		return tickets;
+	}
 }

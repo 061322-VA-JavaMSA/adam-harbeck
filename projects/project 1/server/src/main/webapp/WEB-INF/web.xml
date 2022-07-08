@@ -29,7 +29,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ticket-servlet</servlet-name>
-		<url-pattern>/tickets</url-pattern>
+		<url-pattern>/tickets/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>

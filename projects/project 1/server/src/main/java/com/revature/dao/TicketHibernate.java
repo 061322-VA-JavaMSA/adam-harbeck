@@ -28,8 +28,14 @@ public class TicketHibernate implements TicketDao{
 	@Override
 	public List<Ticket> getResolved() {
 		List<Ticket> tickets = null;
-		
-		return null;
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			tickets = s.createQuery("from Ticket where status = 'APPROVED'", Ticket.class).list();
+			
+		} catch (HibernateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tickets;
 	}
 
 	@Override

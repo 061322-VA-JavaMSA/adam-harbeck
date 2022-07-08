@@ -23,11 +23,31 @@ public class TicketServlet extends HttpServlet{
 		Cors.addCorsHeader(req.getRequestURI(), res);
 		res.addHeader("Content-Type", "application/json");
 
-		List<Ticket> tickets = ts.getPending();
+		/*
+		  So, this works for the manager. It gets the /pending and /resolved.
+		  However, a user is supposed to be able to get their pending and resolved.
+		  I could set it to a user such as /tickets/emp=[username]/pending
+		 */
+		String path = req.getPathInfo();
+		if(path.equals("/pending")) {
+			List<Ticket> tickets = ts.getPending();
+			
+			PrintWriter pw = res.getWriter();
+			pw.write(om.writeValueAsString(tickets));
+			res.setStatus(200);
+			pw.close();
+			
+		} else if(path.equals("/resolved")) {
+			List<Ticket> tickets = ts.getResolved();
+			
+			PrintWriter pw = res.getWriter();
+			pw.write(om.writeValueAsString(tickets));
+			res.setStatus(200);
+			pw.close();
+			
+		}
 		
-		PrintWriter pw = res.getWriter();
-		pw.write(om.writeValueAsString(tickets));
-		res.setStatus(200);
-		pw.close();
+
+
 	}
 }
