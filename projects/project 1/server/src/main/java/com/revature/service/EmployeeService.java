@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.revature.dao.EmployeeDao;
 import com.revature.dao.EmployeePostgres;
@@ -14,4 +15,12 @@ public class EmployeeService {
 		List<Employee> emps = ed.getEmployees();
 		return emps;
 	}
+	
+	public Employee getEmployeeById(UUID id) {
+		Employee emp = ed.getById(id);
+		
+		return emp;
+		
+	}
 }
+

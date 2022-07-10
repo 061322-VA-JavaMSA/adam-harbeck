@@ -7,7 +7,6 @@ if(sessionStorage.getItem("principal")) {
 } 
 
 async function logout() {
-   console.log("hit");
    let response = await fetch(url, {
       method: 'DELETE',
       credentials: 'include'
