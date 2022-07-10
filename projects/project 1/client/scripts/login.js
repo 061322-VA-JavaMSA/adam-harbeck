@@ -31,7 +31,7 @@ async function login() {
 
     if(response.status == 200) {
         let data = await response.json();
-        sessionStorage.setItem('principal', data);
+        sessionStorage.setItem('principal', JSON.stringify(data));
         if(data.role === "MANAGER") {
             window.location.href = "/client/views/mDashboard.html";
         } else {
