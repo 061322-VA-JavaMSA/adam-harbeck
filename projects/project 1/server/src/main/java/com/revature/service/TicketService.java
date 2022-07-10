@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.revature.dao.TicketDao;
 import com.revature.dao.TicketHibernate;
@@ -28,5 +29,15 @@ public class TicketService {
 		return b;
 	}
 	
-
+	public List<Ticket> getEmployeePending(UUID id) {
+		List<Ticket> tickets = td.getEmployeePending(id);
+		
+		return tickets;
+	}
+	
+	public List<Ticket> getEmployeeResolved(UUID id) {
+		List<Ticket> tickets = td.getEmployeeResolved(id);
+		
+		return tickets;
+	}
 }

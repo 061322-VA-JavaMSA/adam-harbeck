@@ -57,5 +57,4 @@ insert into tickets (id, amount, submitted, description, employee, approved_by, 
 
 
 
-select * from tickets where status = 'APPROVED' or status = 'REJECTED'
 
