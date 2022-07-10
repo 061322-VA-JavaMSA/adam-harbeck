@@ -2,11 +2,11 @@ document.getElementById('pendTick').addEventListener("click", pending);
 document.getElementById('resoTick').addEventListener("click", resolved);
 document.getElementById('emps').addEventListener("click", employees);
 
-let ticketUrl = "http://localhost:8080/projectOne/tickets";
-
+let ticketUrl = "http://localhost:8080/projectOne/";
+let divCon = document.getElementById('divList');
 let ticketData;
 async function pending() {
-    let response = await fetch(`${ticketUrl}/pending`, {
+    let response = await fetch(`${ticketUrl}tickets/pending`, {
         method: "GET",
         credentials: 'include'
     });
@@ -20,7 +20,7 @@ async function pending() {
 }
 
 async function resolved() {
-    let response = await fetch(`${ticketUrl}/resolved`, {
+    let response = await fetch(`${ticketUrl}tickets/resolved`, {
         method: 'GET',
         credentials: 'include'
     });
@@ -33,7 +33,7 @@ async function resolved() {
 }
 
 async function employees() {
-    let response = await fetch(url, {
+    let response = await fetch(`${ticketUrl}employees`, {
         method: 'GET',
         credentials: 'include'
     });
@@ -41,11 +41,19 @@ async function employees() {
     if(response.status == 200) {
         let emps = await response.json();
         // Do something with the data
+        divCon.innerHTML = '';
+        emps.map(emp => {
+            console.log(emp);
+            let employee = document.createElement('div');
+            employee.class = 'employeeDiv';
+            employee.innerHTML = `<p>Name: ${emp.firstName} ${emp.lastName}</p><p>Username: ${emp.username}</p><p>Email: ${emp.email}</p><p>Role: ${emp.role}</p><hr>`;
+            divCon.append(employee);
+        })
+
     }
 }
 
 function addToPage(data) {
-    let divCon = document.getElementById('ticketList');
     divCon.innerHTML= '';
     if(data.length > 1) {
         data.map(t => {
@@ -58,7 +66,12 @@ function addToPage(data) {
     } else {
         let ticket = document.createElement('div');
         ticket.class = 'ticketDiv';
-        ticket.innerHTML = `<p>Ticket ID: ${data.id}</p><p>Amount: ${data.amount}</p><p>Type: ${data.type}</p><p>Employee ID: ${data.author}</p><p>Description: ${data.description}</p><p>Status: ${data.status}</p><p>Submitted: ${data.submitted}</p><p>Approved By: ${data.approvedBy}</p>`;
+        if(data.id == undefined) {
+            ticket.innerHTML = `<p>Ticket ID: ${data[0].id}</p><p>Amount: ${data[0].amount}</p><p>Type: ${data[0].type}</p><p>Employee ID: ${data[0].author}</p><p>Description: ${data[0].description}</p><p>Status: ${data[0].status}</p><p>Submitted: ${data[0].submitted}</p><p>Approved By: ${data[0].approvedBy}</p>`;
+        } else {
+            ticket.innerHTML = `<p>Ticket ID: ${data.id}</p><p>Amount: ${data.amount}</p><p>Type: ${data.type}</p><p>Employee ID: ${data.author}</p><p>Description: ${data.description}</p><p>Status: ${data.status}</p><p>Submitted: ${data.submitted}</p><p>Approved By: ${data.approvedBy}</p>`;
+        }
+        
         divCon.append(ticket);
         if(data.status == 'PENDING') {
             let aButton = document.createElement('button');

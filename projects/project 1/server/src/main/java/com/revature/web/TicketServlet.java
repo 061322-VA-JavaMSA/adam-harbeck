@@ -47,8 +47,40 @@ public class TicketServlet extends HttpServlet{
 			res.setStatus(200);
 			pw.close();
 			
-		}
+		} 
 
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Cors.addCorsHeader(req.getRequestURI(), res);
+		res.addHeader("Content-Type", "application/json");
+		
+		String path = req.getPathInfo();
+		if(path.equals("/emp&tickets=pending")) {
+
+
+			UUID id = UUID.fromString(req.getParameter("id"));
+			System.out.println(id); // Reads null
+			List<Ticket> tickets = ts.getEmployeePending(id);
+			
+			PrintWriter pw = res.getWriter();
+			pw.write(om.writeValueAsString(tickets));
+			res.setStatus(200);
+			pw.close();
+			
+		} else if(path.equals("/emp&tickets=resolved")) {
+			UUID id = UUID.fromString(req.getParameter("id"));
+			System.out.println(id);
+			List<Ticket> tickets = ts.getEmployeeResolved(id);
+			
+			PrintWriter pw = res.getWriter();
+			pw.write(om.writeValueAsString(tickets));
+			res.setStatus(200);
+			pw.close();
+			
+		}
+		
 	}
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -45,17 +46,32 @@ public class TicketHibernate implements TicketDao{
 	}
 
 	@Override
-	public List<Ticket> getEmployeePending(Employee id) {
+	public List<Ticket> getEmployeePending(UUID id) {
 		List<Ticket> tickets = null;
+		System.out.println(id);
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			tickets = s.createQuery("from Ticket where status = 'PENDING' and author = :id", Ticket.class).setParameter("id", id).list();
+			
+		} catch (HibernateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return null;
+		return tickets;
 	}
 
 	@Override
-	public List<Ticket> getEmployeeResolved(Employee id) {
+	public List<Ticket> getEmployeeResolved(UUID id) {
 		List<Ticket> tickets = null;
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			tickets = s.createQuery("from Ticket where status = 'APPROVED' and author = :id or status = 'REJECTED' and author = :id", Ticket.class).setParameter("id", id).list();
+			
+		} catch (HibernateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return null;
+		return tickets;
 	}
 
 	@Override

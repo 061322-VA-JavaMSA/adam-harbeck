@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dto.EmployeeDto;
 import com.revature.models.Employee;
 import com.revature.service.EmployeeService;
+import com.revature.util.Cors;
 
 public class EmployeeServlet extends HttpServlet{
 
@@ -22,6 +23,7 @@ public class EmployeeServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Cors.addCorsHeader(req.getRequestURI(), res);
 		res.addHeader("Content-Type", "application/json");
 		
 		List<Employee> emps = es.getEmployees();
@@ -34,5 +36,11 @@ public class EmployeeServlet extends HttpServlet{
 		pw.write(om.writeValueAsString(empsDTO));
 		
 		pw.close();
+	}
+	
+	@Override
+	protected void doOptions(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		Cors.addCorsHeader(req.getRequestURI(),res);
+		super.doOptions(req, res);
 	}
 }
