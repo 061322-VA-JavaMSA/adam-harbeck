@@ -19,8 +19,16 @@ public class EmployeeHibernate implements EmployeeDao{
 
 	@Override
 	public List<Employee> getEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Employee> employees = null;
+		try(Session s = HibernateUtil.getSessionFactory().openSession()){
+			employees = s.createQuery("from Employee where role = 'EMPLOYEE'", Employee.class).list();
+		} catch (HibernateException | IOException e) {
+
+			e.printStackTrace();
+		}
+		
+		
+		return employees;
 	}
 
 	@Override
