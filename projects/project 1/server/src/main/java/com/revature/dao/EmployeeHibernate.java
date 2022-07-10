@@ -29,7 +29,6 @@ public class EmployeeHibernate implements EmployeeDao{
 		Employee emp = null;
 		
 		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
-//			emp = s.get(Employee.class, username);
 			CriteriaBuilder cb = s.getCriteriaBuilder();
 			CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
 			Root<Employee> root = cq.from(Employee.class);
@@ -49,8 +48,15 @@ public class EmployeeHibernate implements EmployeeDao{
 
 	@Override
 	public Employee getById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Employee emp = null;
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			emp = s.get(Employee.class, id);
+		} catch (HibernateException | IOException e) {
+
+			e.printStackTrace();
+		}
+		
+		return emp;
 	}
 
 }

@@ -21,4 +21,12 @@ public class TicketService {
 		
 		return tickets;
 	}
+	
+	public boolean updateTicket(Ticket t) {
+		boolean b = td.updateTicket(t);
+		
+		return b;
+	}
+	
+
 }

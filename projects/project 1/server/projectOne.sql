@@ -6,7 +6,7 @@
 --)
 
 create type role as enum ('EMPLOYEE', 'MANAGER');
-create type status as enum ('APPROVED', 'PENDING');
+create type status as enum ('APPROVED', 'PENDING', 'REJECTED');
 create type reimb_type as enum ('LODGING', 'TRAVEL', 'FOOD', 'OTHER');
 
 drop table if exists employees;
@@ -52,9 +52,10 @@ insert into tickets (id, amount, submitted, description, employee, reimb_type) v
 insert into tickets (id, amount, submitted, description, employee, reimb_type) values ('90701a4d-1857-4a2e-8e5c-01f44ee9659b', 34.95, '2022-06-22', 'Reimbursement for buying supplies for the office.', '90bc6cfc-758a-4017-8906-d5406606a4a2', 'OTHER');
 insert into tickets (id, amount, submitted, description, employee, approved_by, status, reimb_type) values ('70a78dd4-3c9c-4540-9693-5237f7b26d5f', 69.87, '2022-06-11', 'Lodging reimbursement form trip to Atlanta office.', '7828c6bc-5b62-4cd8-9b01-f03cb4638137', '7921acac-b183-4676-a843-ccaa5630023a', 'APPROVED', 'LODGING');
 insert into tickets (id, amount, submitted, description, employee, approved_by, status, reimb_type) values ('e045fc4f-992c-4c53-b3f4-808b1631b0c7', 32.11, '2022-06-05', 'Travel reimbursement for transit.', '90bc6cfc-758a-4017-8906-d5406606a4a2', '68e6476d-4c1f-48ec-9000-a95fb63ef5c2', 'APPROVED', 'TRAVEL');
+insert into tickets (id, amount, submitted, description, employee, approved_by, status, reimb_type) values ('d368e1de-4483-4631-ac35-2c92a14da672', 404.92, '2022-06-01', 'Reimbursement for vacation', '90bc6cfc-758a-4017-8906-d5406606a4a2', '68e6476d-4c1f-48ec-9000-a95fb63ef5c2', 'REJECTED', 'OTHER');
 
 
 
 
-
+select * from tickets where status = 'APPROVED' or status = 'REJECTED'
 

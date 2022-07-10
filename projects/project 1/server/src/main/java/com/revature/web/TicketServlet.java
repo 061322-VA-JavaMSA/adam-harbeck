@@ -3,6 +3,7 @@ package com.revature.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.models.Status;
 import com.revature.models.Ticket;
 import com.revature.service.TicketService;
 import com.revature.util.Cors;
@@ -46,8 +48,27 @@ public class TicketServlet extends HttpServlet{
 			pw.close();
 			
 		}
+
+	}
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Cors.addCorsHeader(req.getRequestURI(), res);
 		
+		Ticket t = om.readValue(req.getInputStream(), Ticket.class);
+		boolean updated = ts.updateTicket(t);
 
+		if(updated) {
+			res.setStatus(202);
+		} else {
+			res.setStatus(304);
+		}
 
+		
+	}
+	
+	@Override
+	protected void doOptions(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		Cors.addCorsHeader(req.getRequestURI(),res);
+		super.doOptions(req, res);
 	}
 }

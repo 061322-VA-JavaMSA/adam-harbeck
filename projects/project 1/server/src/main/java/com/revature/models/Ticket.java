@@ -26,6 +26,7 @@ public class Ticket {
 	private UUID author;
 	@Column( name="approved_by")
 	private UUID approvedBy;
+	@Column(name="status")
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@Column(name="reimb_type")
@@ -41,8 +42,8 @@ public class Ticket {
 	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(float amount) {
-		this.amount = amount;
+	public void setAmount(double d) {
+		this.amount = d;
 	}
 	public Date getSubmitted() {
 		return submitted;
