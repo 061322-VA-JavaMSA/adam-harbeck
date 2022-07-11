@@ -2,11 +2,11 @@ document.getElementById('pendTick').addEventListener("click", pending);
 document.getElementById('resoTick').addEventListener("click", resolved);
 document.getElementById('emps').addEventListener("click", employees);
 
-let ticketUrl = "http://localhost:8080/projectOne/";
+
 let divCon = document.getElementById('divList');
 let ticketData;
 async function pending() {
-    let response = await fetch(`${ticketUrl}tickets/pending`, {
+    let response = await fetch(`${url}tickets/pending`, {
         method: "GET",
         credentials: 'include'
     });
@@ -20,7 +20,7 @@ async function pending() {
 }
 
 async function resolved() {
-    let response = await fetch(`${ticketUrl}tickets/resolved`, {
+    let response = await fetch(`${url}tickets/resolved`, {
         method: 'GET',
         credentials: 'include'
     });
@@ -33,7 +33,7 @@ async function resolved() {
 }
 
 async function employees() {
-    let response = await fetch(`${ticketUrl}employees`, {
+    let response = await fetch(`${url}employees`, {
         method: 'GET',
         credentials: 'include'
     });
@@ -46,7 +46,7 @@ async function employees() {
             let employee = document.createElement('div');
             employee.class = 'employeeDiv';
             employee.innerHTML = `<p>Name: ${emp.firstName} ${emp.lastName}</p><p>Username: ${emp.username}</p><p>Email: ${emp.email}</p><p>Role: ${emp.role}</p><hr>`;
-            employee.addEventListener('click', e => {e.data = emp; getEmplyeeTickets(e.data)});
+            employee.addEventListener('click', e => {e.data = emp; getEmployeeTickets(e.data)});
             divCon.append(employee);
         })
 
@@ -95,7 +95,7 @@ async function updateTicket(data, decision) {
     data.approvedBy = obj.id;
 
 
-    let response = await fetch(`${ticketUrl}/tickets`, {
+    let response = await fetch(`${url}tickets`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -110,8 +110,8 @@ async function updateTicket(data, decision) {
     }
 }
 
-async function getEmplyeeTickets(data) {
-    let response = await fetch(`${ticketUrl}tickets/emp&tickets`, {
+async function getEmployeeTickets(data) {
+    let response = await fetch(`${url}tickets/emp&tickets`, {
         method: 'POST',
         credentials: 'include',
         headers: {

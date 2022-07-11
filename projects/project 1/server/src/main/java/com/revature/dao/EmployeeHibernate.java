@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.revature.models.Employee;
 import com.revature.util.HibernateUtil;
@@ -65,6 +66,27 @@ public class EmployeeHibernate implements EmployeeDao{
 		}
 		
 		return emp;
+	}
+
+	@Override
+	public boolean updateEmployee(Employee e) {
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			Transaction tx = s.beginTransaction();
+			Employee emp = (Employee) s.get(Employee.class, e.getId());
+			emp.setUsername(e.getUsername());
+			emp.setFirstName(e.getFirstName());
+			emp.setLastName(e.getLastName());
+			emp.setEmail(e.getEmail());
+			s.merge(emp);
+			tx.commit();
+			return true;
+			
+		} catch (HibernateException | IOException e1) {
+
+			e1.printStackTrace();
+			return false;
+		}
+
 	}
 
 }

@@ -1,4 +1,4 @@
-let url = 'http://localhost:8080/projectOne/auth';
+let url = 'http://localhost:8080/projectOne/';
 
 if(sessionStorage.getItem("principal")) {
    let button =  document.getElementById('loginButton');
@@ -7,7 +7,7 @@ if(sessionStorage.getItem("principal")) {
 } 
 
 async function logout() {
-   let response = await fetch(url, {
+   let response = await fetch(`${url}auth`, {
       method: 'DELETE',
       credentials: 'include'
    });

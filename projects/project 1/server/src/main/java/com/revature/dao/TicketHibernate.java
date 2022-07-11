@@ -8,14 +8,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.revature.models.Employee;
-import com.revature.models.Status;
 import com.revature.models.Ticket;
 import com.revature.util.HibernateUtil;
 
-import jakarta.persistence.Persistence;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 
 public class TicketHibernate implements TicketDao{
 
