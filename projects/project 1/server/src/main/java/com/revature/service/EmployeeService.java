@@ -22,5 +22,11 @@ public class EmployeeService {
 		return emp;
 		
 	}
+	
+	public boolean updateEmployee(Employee e) {
+		boolean update = ed.updateEmployee(e);
+		
+		return update;
+	}
 }
 
