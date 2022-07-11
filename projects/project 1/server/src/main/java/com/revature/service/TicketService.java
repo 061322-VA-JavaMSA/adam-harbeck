@@ -40,4 +40,10 @@ public class TicketService {
 		
 		return tickets;
 	}
+	
+	public List<Ticket> getAllEmployeeTickets(UUID id) {
+		List<Ticket> tickets = td.getAllEmployeeTickets(id);
+		
+		return tickets;
+	}
 }

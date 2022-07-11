@@ -11,13 +11,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 @Entity
-@Table ( name = "tickets")
+@Table ( name = "tickets", schema = "public")
 public class Ticket {
 	@Id
+	@Column( name="id")
 	private UUID id;
 	@Column( name="amount", nullable = false, columnDefinition="NUMERIC")
 	private double amount;
-	@Column( name="submitted", nullable = false)
+	@Column( name="submitted", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern ="yyy-MM-dd")
 	private Date submitted;
 	@Column( name="description", nullable = false)
