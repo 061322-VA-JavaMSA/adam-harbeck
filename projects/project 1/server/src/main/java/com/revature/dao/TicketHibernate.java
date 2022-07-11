@@ -77,8 +77,15 @@ public class TicketHibernate implements TicketDao{
 	@Override
 	public boolean updateTicket(Ticket t) {
 		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
-
-
+			Transaction tx = s.beginTransaction();
+			Ticket tick = (Ticket) s.get(Ticket.class, t.getId());
+			System.out.println(tick);
+//			tick.setId(t.getId());
+			tick.setStatus(t.getStatus());
+			tick.setApprovedBy(t.getApprovedBy());
+			System.out.println(tick);
+			s.merge(tick);
+			tx.commit();
 			return true;
 		} catch (HibernateException | IOException e) {
 			// TODO Auto-generated catch block

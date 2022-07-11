@@ -7,9 +7,10 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table (name = "employees")
+@Table (name = "employees", schema = "public")
 public class Employee {
 	@Id
+	@Column(name="id")
 	private UUID id;
 	@Column( name="username", nullable = false, unique = true )
 	private String username;

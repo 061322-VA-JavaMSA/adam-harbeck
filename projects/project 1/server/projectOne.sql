@@ -17,7 +17,7 @@ password varchar(20) not null,
 first_name varchar(20) not null,
 last_name varchar(20) not null,
 email varchar(40) not null unique,
-role role not null default 'EMPLOYEE'
+role varchar(10) not null default 'EMPLOYEE'
 )
 
 drop table if exists tickets;
@@ -28,8 +28,8 @@ submitted date not null default current_date,
 description text not null,
 employee UUID not null references employees(id) ,
 approved_by UUID references employees(id),
-status status not null default 'PENDING',
-reimb_type reimb_type not null
+status varchar(10) not null default 'PENDING',
+reimb_type varchar(10) not null
 )
 
 

@@ -95,7 +95,7 @@ async function updateTicket(data, decision) {
     data.approvedBy = obj.id;
 
 
-    let response = await fetch(`${ticketUrl}`, {
+    let response = await fetch(`${ticketUrl}/tickets`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
