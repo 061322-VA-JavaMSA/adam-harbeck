@@ -29,7 +29,6 @@ public class EmployeeServlet extends HttpServlet{
 		List<Employee> emps = es.getEmployees();
 		System.out.println(emps);
 		List<EmployeeDto> empsDTO = new ArrayList<>();
-		
 		emps.forEach(e -> empsDTO.add(new EmployeeDto(e)));
 		
 		PrintWriter pw = res.getWriter();

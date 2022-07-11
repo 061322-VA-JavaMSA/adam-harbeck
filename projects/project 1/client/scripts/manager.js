@@ -43,10 +43,10 @@ async function employees() {
         // Do something with the data
         divCon.innerHTML = '';
         emps.map(emp => {
-            console.log(emp);
             let employee = document.createElement('div');
             employee.class = 'employeeDiv';
             employee.innerHTML = `<p>Name: ${emp.firstName} ${emp.lastName}</p><p>Username: ${emp.username}</p><p>Email: ${emp.email}</p><p>Role: ${emp.role}</p><hr>`;
+            employee.addEventListener('click', e => {e.data = emp; getEmplyeeTickets(e.data)});
             divCon.append(employee);
         })
 
@@ -73,7 +73,7 @@ function addToPage(data) {
         }
         
         divCon.append(ticket);
-        if(data.status == 'PENDING') {
+        if(data.status == 'PENDING' || data[0].status === 'PENDING') {
             let aButton = document.createElement('button');
             aButton.innerText = 'Approve';
             aButton.addEventListener('click', e => {updateTicket(data, "APPROVED")});
@@ -95,7 +95,7 @@ async function updateTicket(data, decision) {
     data.approvedBy = obj.id;
 
 
-    let response = await fetch(`${ticketUrl}`, {
+    let response = await fetch(`${ticketUrl}/tickets`, {
         method: 'PUT',
         credentials: 'include',
         headers: {
@@ -107,5 +107,23 @@ async function updateTicket(data, decision) {
         console.log('updated');
     }else {
         console.log("Not Modified");
+    }
+}
+
+async function getEmplyeeTickets(data) {
+    let response = await fetch(`${ticketUrl}tickets/emp&tickets`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+            "id": data.id
+        })
+     })
+    
+    if(response.status == 200) {
+        ticketData = await response.json();
+        addToPage(ticketData);
     }
 }

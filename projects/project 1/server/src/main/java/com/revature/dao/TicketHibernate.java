@@ -73,12 +73,33 @@ public class TicketHibernate implements TicketDao{
 		
 		return tickets;
 	}
+	
+	@Override
+	public List<Ticket> getAllEmployeeTickets(UUID id) {
+		List<Ticket> tickets = null;
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			tickets = s.createQuery("from Ticket where author = :id", Ticket.class).setParameter("id", id).list();
+			
+		} catch (HibernateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return tickets;
+	}
 
 	@Override
 	public boolean updateTicket(Ticket t) {
 		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
-
-
+			Transaction tx = s.beginTransaction();
+			Ticket tick = (Ticket) s.get(Ticket.class, t.getId());
+			System.out.println(tick);
+//			tick.setId(t.getId());
+			tick.setStatus(t.getStatus());
+			tick.setApprovedBy(t.getApprovedBy());
+			System.out.println(tick);
+			s.merge(tick);
+			tx.commit();
 			return true;
 		} catch (HibernateException | IOException e) {
 			// TODO Auto-generated catch block
@@ -95,5 +116,7 @@ public class TicketHibernate implements TicketDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

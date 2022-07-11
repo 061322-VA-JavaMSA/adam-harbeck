@@ -71,7 +71,6 @@ public class TicketServlet extends HttpServlet{
 			
 		} else if(path.equals("/emp&tickets=resolved")) {
 			UUID id = UUID.fromString(req.getParameter("id"));
-			System.out.println(id);
 			List<Ticket> tickets = ts.getEmployeeResolved(id);
 			
 			PrintWriter pw = res.getWriter();
@@ -79,9 +78,18 @@ public class TicketServlet extends HttpServlet{
 			res.setStatus(200);
 			pw.close();
 			
+		} else if(path.equals("/emp&tickets")) {
+			UUID id = UUID.fromString(req.getParameter("id"));
+			List<Ticket> tickets = ts.getAllEmployeeTickets(id);
+			
+			PrintWriter pw = res.getWriter();
+			pw.write(om.writeValueAsString(tickets));
+			res.setStatus(200);
+			pw.close();
 		}
 		
 	}
+	
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Cors.addCorsHeader(req.getRequestURI(), res);

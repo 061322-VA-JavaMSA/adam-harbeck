@@ -18,6 +18,7 @@ public interface TicketDao {
 	List<Ticket> getResolved();
 	List<Ticket> getEmployeePending(UUID id);
 	List<Ticket> getEmployeeResolved(UUID id);
+	List<Ticket> getAllEmployeeTickets(UUID id);
 	boolean updateTicket(Ticket t);
 	Ticket createTicket(Ticket t);
 	
