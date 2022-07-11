@@ -57,4 +57,3 @@ insert into tickets (id, amount, submitted, description, employee, approved_by, 
 
 
 
-

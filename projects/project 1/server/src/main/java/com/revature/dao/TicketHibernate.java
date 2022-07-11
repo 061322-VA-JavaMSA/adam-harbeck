@@ -73,6 +73,20 @@ public class TicketHibernate implements TicketDao{
 		
 		return tickets;
 	}
+	
+	@Override
+	public List<Ticket> getAllEmployeeTickets(UUID id) {
+		List<Ticket> tickets = null;
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			tickets = s.createQuery("from Ticket where author = :id", Ticket.class).setParameter("id", id).list();
+			
+		} catch (HibernateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return tickets;
+	}
 
 	@Override
 	public boolean updateTicket(Ticket t) {
@@ -102,5 +116,7 @@ public class TicketHibernate implements TicketDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
