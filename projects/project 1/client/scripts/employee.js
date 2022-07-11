@@ -3,7 +3,7 @@ document.getElementById('pendTicks').addEventListener('click', pending);
 document.getElementById('resoTicks').addEventListener('click', resolved);
 document.getElementById('empProfile').addEventListener('click', profile);
 
-let ticketUrl = "http://localhost:8080/projectOne/";
+
 let divCon = document.getElementById('divList');
 let ticketData;
 
@@ -11,8 +11,7 @@ let employee = sessionStorage.getItem('principal');
 let empObj = JSON.parse(employee);
 
 async function pending() {
-    console.log(empObj.id);
-    let response = await fetch(`${ticketUrl}tickets/emp&tickets=pending`, {
+    let response = await fetch(`${url}tickets/emp&tickets=pending`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -30,7 +29,7 @@ async function pending() {
 }
 
 async function resolved() {
-    let response = await fetch(`${ticketUrl}tickets/emp&tickets=resolved`, {
+    let response = await fetch(`${url}tickets/emp&tickets=resolved`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -52,11 +51,87 @@ async function newTicket() {
 }
 
 function profile() {
+    divCon.innerHTML = '';
+    // Show the employees details
+    let employee = document.createElement("div");
+    employee.id = 'empProfile';
+    employee.innerHTML = `<p>Username: ${empObj.username}</p><p>First Name: ${empObj.firstName}</p><p>Last Name: ${empObj.lastName}</p><p>Email: ${empObj.email}</p>`;
+    divCon.append(employee);
+    let button = document.createElement("button");
+    button.innerText = "Edit Profile";
+    button.addEventListener("click", editProfile)
+    divCon.append(button);
+}
 
+function editProfile() {
+    console.log("Editting!")
+    divCon.innerHTML = '';
+    let categories  = ['Username', 'First Name', 'Last Name', 'Email'];
+
+    categories.map(cat => {
+        let input = document.createElement('input');
+        let label = document.createElement('label');
+        input.placeholder = cat;
+        label.htmlFor = `emp${cat}`;
+        label.innerText = cat;
+        switch(cat) {
+            case 'Username':
+                input.value = empObj.username;
+                input.id = `empUsername`;
+            break;
+            case "First Name":
+                input.value = empObj.firstName;
+                input.id = `empFirstName`;
+            break;
+            case "Last Name":
+                input.value = empObj.lastName;
+                input.id = `empLastName`;
+            break;
+            case "Email":
+                input.value = empObj.email;
+                input.id = `empEmail`;
+                input.type = 'email';
+            break;
+        }
+        divCon.append(label);
+        divCon.append(input);
+        divCon.append(document.createElement('br'));
+
+    })
+    let submit = document.createElement("button");
+    submit.id = 'profileSubmit';
+    submit.innerText = 'Submit'
+    submit.addEventListener('click', e => {
+        empObj.username = document.getElementById('empUsername').value;
+        empObj.firstName = document.getElementById('empFirstName').value;
+        empObj.lastName = document.getElementById('empLastName').value;
+        empObj.email = document.getElementById('empEmail').value;
+        e.data = empObj;
+        updateProfile();
+    })
+    divCon.append(submit);
+}
+
+async function updateProfile() {
+    console.log(empObj);
+    let response = await fetch(`${url}employees/emp`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(empObj)
+    })
+    if(response.status == 202) {
+        divCon.innerHTML = '';
+        console.log('updated');
+    } else {
+        console.log("Not modified");
+    }
 }
 
 function addTickets(data) {
-    console.log(data);
+
     divCon.innerHTML = '';
     if(data.length > 1) {
         data.map(t => {

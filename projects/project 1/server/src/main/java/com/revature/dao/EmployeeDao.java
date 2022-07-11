@@ -13,5 +13,6 @@ public interface EmployeeDao {
 	List<Employee> getEmployees();
 	Employee getByUsername(String username);
 	Employee getById(UUID id);
+	boolean updateEmployee(Employee e);
 	
 }

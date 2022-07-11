@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dto.EmployeeDto;
 import com.revature.models.Employee;
+import com.revature.models.Ticket;
 import com.revature.service.EmployeeService;
 import com.revature.util.Cors;
 
@@ -35,6 +36,22 @@ public class EmployeeServlet extends HttpServlet{
 		pw.write(om.writeValueAsString(empsDTO));
 		
 		pw.close();
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Cors.addCorsHeader(req.getRequestURI(), res);
+		
+		Employee e = om.readValue(req.getInputStream(), Employee.class);
+		boolean updated = es.updateEmployee(e);
+
+		if(updated) {
+			res.setStatus(202);
+		} else {
+			res.setStatus(304);
+		}
+
+		
 	}
 	
 	@Override

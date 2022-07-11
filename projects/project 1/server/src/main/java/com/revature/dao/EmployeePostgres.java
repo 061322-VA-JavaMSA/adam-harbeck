@@ -57,4 +57,10 @@ public class EmployeePostgres implements EmployeeDao{
 		return null;
 	}
 
+	@Override
+	public boolean updateEmployee(Employee e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
