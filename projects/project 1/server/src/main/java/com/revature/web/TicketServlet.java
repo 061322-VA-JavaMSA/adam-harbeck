@@ -2,6 +2,8 @@ package com.revature.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +33,7 @@ public class TicketServlet extends HttpServlet{
 		  I could set it to a user such as /tickets/emp=[username]/pending
 		 */
 		String path = req.getPathInfo();
+
 		if(path.equals("/pending")) {
 			List<Ticket> tickets = ts.getPending();
 			
@@ -57,36 +60,51 @@ public class TicketServlet extends HttpServlet{
 		res.addHeader("Content-Type", "application/json");
 		
 		String path = req.getPathInfo();
-		if(path.equals("/emp&tickets=pending")) {
+		if(path == null) {
+			UUID id = UUID.randomUUID();
+			Ticket t = om.readValue(req.getInputStream(), Ticket.class);
+			t.setId(id);
+			System.out.println(t);
+			Ticket tk = ts.createTicket(t);
+			
+			PrintWriter pw = res.getWriter();
+			pw.write(om.writeValueAsString(tk));
+			res.setStatus(201);
+			pw.close();
+			
+		} else {
+			if(path.equals("/emp&tickets=pending")) {
 
 
-			UUID id = UUID.fromString(req.getParameter("id"));
-			System.out.println(id); // Reads null
-			List<Ticket> tickets = ts.getEmployeePending(id);
-			
-			PrintWriter pw = res.getWriter();
-			pw.write(om.writeValueAsString(tickets));
-			res.setStatus(200);
-			pw.close();
-			
-		} else if(path.equals("/emp&tickets=resolved")) {
-			UUID id = UUID.fromString(req.getParameter("id"));
-			List<Ticket> tickets = ts.getEmployeeResolved(id);
-			
-			PrintWriter pw = res.getWriter();
-			pw.write(om.writeValueAsString(tickets));
-			res.setStatus(200);
-			pw.close();
-			
-		} else if(path.equals("/emp&tickets")) {
-			UUID id = UUID.fromString(req.getParameter("id"));
-			List<Ticket> tickets = ts.getAllEmployeeTickets(id);
-			
-			PrintWriter pw = res.getWriter();
-			pw.write(om.writeValueAsString(tickets));
-			res.setStatus(200);
-			pw.close();
+				UUID id = UUID.fromString(req.getParameter("id"));
+				System.out.println(id); // Reads null
+				List<Ticket> tickets = ts.getEmployeePending(id);
+				
+				PrintWriter pw = res.getWriter();
+				pw.write(om.writeValueAsString(tickets));
+				res.setStatus(200);
+				pw.close();
+				
+			} else if(path.equals("/emp&tickets=resolved")) {
+				UUID id = UUID.fromString(req.getParameter("id"));
+				List<Ticket> tickets = ts.getEmployeeResolved(id);
+				
+				PrintWriter pw = res.getWriter();
+				pw.write(om.writeValueAsString(tickets));
+				res.setStatus(200);
+				pw.close();
+				
+			} else if(path.equals("/emp&tickets")) {
+				UUID id = UUID.fromString(req.getParameter("id"));
+				List<Ticket> tickets = ts.getAllEmployeeTickets(id);
+				
+				PrintWriter pw = res.getWriter();
+				pw.write(om.writeValueAsString(tickets));
+				res.setStatus(200);
+				pw.close();
+			} 
 		}
+		
 		
 	}
 	
