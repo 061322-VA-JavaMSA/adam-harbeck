@@ -108,7 +108,18 @@ public class TicketHibernate implements TicketDao{
 
 	@Override
 	public Ticket createTicket(Ticket t) {
-		// TODO Auto-generated method stub
+		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
+			Transaction tx = s.beginTransaction();
+			s.persist(t);
+			tx.commit();
+			
+		} catch (HibernateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
 		return null;
 	}
 

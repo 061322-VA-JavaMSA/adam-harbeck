@@ -46,4 +46,10 @@ public class TicketService {
 		
 		return tickets;
 	}
+	
+	public Ticket createTicket(Ticket t) {
+		Ticket tick = td.createTicket(t);
+		
+		return tick;
+	}
 }
