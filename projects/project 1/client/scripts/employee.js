@@ -2,8 +2,9 @@ document.getElementById('newTick').addEventListener('click', newTicket);
 document.getElementById('pendTicks').addEventListener('click', pending);
 document.getElementById('resoTicks').addEventListener('click', resolved);
 document.getElementById('empProfile').addEventListener('click', profile);
+document.getElementById('tickSubmit').addEventListener('click', submitTicket);
 
-
+let nt = document.getElementById('newT');
 let divCon = document.getElementById('divList');
 let ticketData;
 
@@ -46,11 +47,51 @@ async function resolved() {
     }
 }
 
-async function newTicket() {
+function newTicket() {
+    // What is needed in the ticket?
+    /*
+        - ID: will be set by Java
+        - Author: will be added here
+        - Submitted: taken care of by the DB
+        - approvedBy: will be null
+        - status: set by the DB
+    */
+    // amount, type, description
+    divCon.innerHTML = '';
+    nt.style.display = 'block';
+
+    document.getElementById('tickSubmit').addEventListener('click', submitTicket);
 
 }
 
+async function submitTicket() {
+    let d = new Date()
+    let object = {
+        'amount': Number.parseFloat(document.getElementById('forAmount').value),
+        'description': document.getElementById('forDescription').value,
+        'type': document.getElementById('forType').value,
+        'author': empObj.id,
+        'submitted': d,
+        'status': 'PENDING'
+    }
+    console.log(object); // The data has been sent
+    let response = await fetch(`${url}tickets`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(object)
+    })
+    if(response.status == 201) {
+        nt.style.display = 'none';
+        alert("Ticket added");
+    }
+}
+
+
 function profile() {
+    nt.style.display = 'none';
     divCon.innerHTML = '';
     // Show the employees details
     let employee = document.createElement("div");
@@ -64,7 +105,7 @@ function profile() {
 }
 
 function editProfile() {
-    console.log("Editting!")
+
     divCon.innerHTML = '';
     let categories  = ['Username', 'First Name', 'Last Name', 'Email'];
 
@@ -113,7 +154,7 @@ function editProfile() {
 }
 
 async function updateProfile() {
-    console.log(empObj);
+
     let response = await fetch(`${url}employees/emp`, {
         method: 'PUT',
         credentials: 'include',
@@ -131,7 +172,7 @@ async function updateProfile() {
 }
 
 function addTickets(data) {
-
+    nt.style.display = 'none';
     divCon.innerHTML = '';
     if(data.length > 1) {
         data.map(t => {
