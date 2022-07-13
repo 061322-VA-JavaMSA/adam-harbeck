@@ -1,40 +1,47 @@
 <html>
     <head>
-
+        <link href="../css/main.css" rel="stylesheet" />
+        <link href="../css/employee.css" rel="stylesheet" />
     </head>
 
     <body>
         <header>
+            <img src="../assets/reimb.jpeg" />
             <nav>
-                <button id="loginButton"></button>
+                <ul>
+                    <li id="newTick">Submit Ticket</li>
+                    <li id="pendTicks">Pending Tickets</li>
+                    <li id="resoTicks">Resolved Tickets</li>
+                    <li id="empProfile">Profile</li>
+                </ul>
             </nav>
+            <button class="logoutButton" onClick="logout()">Logout</button>
         </header>
 
         <h1>Employee</h1>
 
-        <button id="newTick">Submit Ticket</button>
-        <button id="pendTicks">Pending Tickets</button>
-        <button id="resoTicks">Resolved Tickets</button>
-        <button id="empProfile">Profile</button>
-
         <div id="divList"></div>
         
         <div id="newT" style="display:none" >
-            <label for="forAmount">Amount</label>
-            <input type="text" id="forAmount"/>
-            <br>
-            <label for="forDescription">Description</label>
-            <textarea id="forDescription"></textarea>
-            <br>
-            <label for="forType">Type</label>
-            <select id="forType">
-                <option></option>
-                <option>TRAVEL</option>
-                <option>FOOD</option>
-                <option>LODGING</option>
-                <option>OTHER</option>
-            </select>
-            <br>
+            <div>
+                <label for="forAmount">Amount</label>
+                <input type="text" id="forAmount"/>
+            </div>
+            <div>
+                <label for="forDescription">Description</label>
+                <textarea id="forDescription"></textarea>
+            </div>
+            <div>
+                <label for="forType">Type</label>
+                <select id="forType">
+                    <option></option>
+                    <option>TRAVEL</option>
+                    <option>FOOD</option>
+                    <option>LODGING</option>
+                    <option>OTHER</option>
+                </select>
+            </div>
+
             <button id="tickSubmit">Submit</button>
         </div>
 

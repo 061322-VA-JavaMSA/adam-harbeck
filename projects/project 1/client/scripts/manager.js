@@ -2,6 +2,11 @@ document.getElementById('pendTick').addEventListener("click", pending);
 document.getElementById('resoTick').addEventListener("click", resolved);
 document.getElementById('emps').addEventListener("click", employees);
 
+let manager = sessionStorage.getItem('principal');
+let obj = JSON.parse(manager);
+
+let heading = document.querySelector('h1');
+heading.innerText = `Welcome ${obj.firstName}`;
 
 let divCon = document.getElementById('divList');
 let ticketData;
@@ -44,8 +49,8 @@ async function employees() {
         divCon.innerHTML = '';
         emps.map(emp => {
             let employee = document.createElement('div');
-            employee.class = 'employeeDiv';
-            employee.innerHTML = `<p>Name: ${emp.firstName} ${emp.lastName}</p><p>Username: ${emp.username}</p><p>Email: ${emp.email}</p><p>Role: ${emp.role}</p><hr>`;
+            employee.className = 'ticketDiv';
+            employee.innerHTML = `<p>Name: ${emp.firstName} ${emp.lastName}</p><p>Username: ${emp.username}</p><p>Email: ${emp.email}</p><p>Role: ${emp.role}</p>`;
             employee.addEventListener('click', e => {e.data = emp; getEmployeeTickets(e.data)});
             divCon.append(employee);
         })
@@ -57,31 +62,41 @@ function addToPage(data) {
     divCon.innerHTML= '';
     if(data.length > 1) {
         data.map(t => {
+            divCon.style.justifyContent = 'space-between';
             let ticket = document.createElement('div');
-            ticket.class = 'ticketDiv';
-            ticket.innerHTML = `<p>Ticket ID: ${t.id}</p><p>Amount: ${t.amount}</p><p>Type: ${t.type}</p><p>Employee ID: ${t.author}</p><hr>`;
-            ticket.addEventListener('click', e => {e.data = t; addToPage(e.data);});
+            ticket.className = 'ticketDiv';
+            ticket.innerHTML = `<p>Ticket ID: ${t.id}</p><p>Amount: ${t.amount}</p><p>Type: ${t.type}</p><p>Employee ID: ${t.author}</p>`;
+            if(t.status == "PENDING") {
+                ticket.addEventListener('click', e => {e.data = t; addToPage(e.data);});
+            }
             divCon.append(ticket);
         })
     } else {
         let ticket = document.createElement('div');
-        ticket.class = 'ticketDiv';
+        ticket.className = 'ticketDiv';
+        divCon.style.justifyContent = 'center';
         if(data.id == undefined) {
             ticket.innerHTML = `<p>Ticket ID: ${data[0].id}</p><p>Amount: ${data[0].amount}</p><p>Type: ${data[0].type}</p><p>Employee ID: ${data[0].author}</p><p>Description: ${data[0].description}</p><p>Status: ${data[0].status}</p><p>Submitted: ${data[0].submitted}</p><p>Approved By: ${data[0].approvedBy}</p>`;
         } else {
             ticket.innerHTML = `<p>Ticket ID: ${data.id}</p><p>Amount: ${data.amount}</p><p>Type: ${data.type}</p><p>Employee ID: ${data.author}</p><p>Description: ${data.description}</p><p>Status: ${data.status}</p><p>Submitted: ${data.submitted}</p><p>Approved By: ${data.approvedBy}</p>`;
         }
-        
-        divCon.append(ticket);
+
         if(data.status == 'PENDING' || data[0].status === 'PENDING') {
+            let contDiv = document.createElement('div');
+            contDiv.id = 'contDiv';
+            contDiv.append(ticket);
+            let newDiv = document.createElement('div');
+            newDiv.id = 'buttonDiv';
             let aButton = document.createElement('button');
             aButton.innerText = 'Approve';
             aButton.addEventListener('click', e => {updateTicket(data, "APPROVED")});
             let dButton = document.createElement('button');
             dButton.innerText = 'Reject'
             dButton.addEventListener('click', e => {updateTicket(data, "REJECTED")});
-            divCon.append(aButton);
-            divCon.append(dButton);
+            newDiv.append(aButton);
+            newDiv.append(dButton);
+            contDiv.append(newDiv);
+            divCon.append(contDiv)
         }
 
     }
@@ -89,8 +104,7 @@ function addToPage(data) {
 }
 
 async function updateTicket(data, decision) {
-    let manager = sessionStorage.getItem('principal');
-    let obj = JSON.parse(manager);
+
     data.status = decision;
     data.approvedBy = obj.id;
 
