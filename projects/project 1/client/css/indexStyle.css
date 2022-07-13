@@ -1,0 +1,29 @@
+#heroImage {
+    width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+p {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+#loginButton{
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 40px;
+    background-color: #4EB27C;
+    border: 1px solid #0B3954;
+    color: #0B3954;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    text-decoration: none;
+}
+#loginButton:hover{
+    background-color: #0B3954;
+    color: #E4F0D0;
+    cursor: pointer;
+}

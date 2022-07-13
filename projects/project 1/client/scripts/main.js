@@ -1,10 +1,13 @@
 let url = 'http://localhost:8080/projectOne/';
-
-if(sessionStorage.getItem("principal")) {
-   let button =  document.getElementById('loginButton');
-   button.innerHTML = `Logout`;
-   button.addEventListener('click', logout);
-} 
+let button =  document.getElementById('loginButton');
+if(button){
+   if(sessionStorage.getItem("principal")) {
+      button.innerText = `Logout`;
+      button.addEventListener('click', logout);
+   } else {
+      button.addEventListener("click", ()=> window.location.href = './login.html')
+   }
+}
 
 async function logout() {
    let response = await fetch(`${url}auth`, {
@@ -14,6 +17,7 @@ async function logout() {
 
    if(response.status == 200) {
       sessionStorage.removeItem('principal');
+
       window.location.href = "./index.html"
    }
 }

@@ -1,20 +1,25 @@
 <html>
     <head>
-
+        <link href="../css/main.css" rel="stylesheet" />
+        <link href="../css/manager.css" rel="stylesheet" />
     </head>
 
     <body>
         <header>
+            <img src="../assets/reimb.jpeg" />
             <nav>
-                <button id="loginButton"></button>
+                <ul>
+                    <li id="pendTick">Pending Tickets</li>
+                    <li id="resoTick">Resolved Tickets</li>
+                    <li id="emps">Employees</li>
+                </ul>
             </nav>
+            <button class="logoutButton" onClick="logout()">Logout</button>
         </header>
 
         <h1>Manager</h1>
 
-        <button id="pendTick">Pending Tickets</button>
-        <button id="resoTick">Resolved Tickets</button>
-        <button id="emps">Employees</button>
+
 
 
         <div id="divList"></div>
