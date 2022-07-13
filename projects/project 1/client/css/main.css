@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*
+    Colors:
+    #4EB27C - Medium Sea Green
+    #E4F0D0 - Nyanza
+    #0B3954 - Prussian Blue
+    #2DA578 - Green Munsel
+*/
+body {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #E4F0D0;
+    font-family: 'Montserrat', sans-serif;
+    color: #0B3954
+}
+header  {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2DA578;
+    position: sticky;
+}
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+img {
+    width: auto;
+    height:100%
+}
+.logoutButton {
+    height: 30px;
+    width: 80px;
+    border: 1px solid #0B3954;
+    border-radius: 5px;
+    background-color:#E4F0D0;
+    color: #0B3954;
+    margin: 0 5px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.logoutButton:hover {
+    cursor: pointer;
+    background-color: #0B3954;
+    color:#E4F0D0;
+}
+ul {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+li {
+    list-style: none;
+    color:#E4F0D0;
+    font-weight: 600;
+    display: inline-block;
+}
+li:hover {
+    color: #0B3954;
+    cursor: pointer;
+}
+
+.ticketDiv {
+    width: 450px;
+    height: auto;
+    background-color: #4EB27C;
+    color:#0B3954;
+    margin: 0 5px 10px 5px;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px #0B3954;
+}
+#divList {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    max-width: 1000px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+button { 
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 40px;
+    background-color: #4EB27C;
+    border: 1px solid #0B3954;
+    color: #0B3954;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 0 2px 5px #0B3954;
+}
+button:hover{
+    background-color: #0B3954;
+    color: #E4F0D0;
+    cursor: pointer;
+}
+#contDiv {
+    width: 450px;
+    margin: 0 auto;
+}
+#editDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+p {
+    font-size: 18px;
+    font-weight: 500;
+}

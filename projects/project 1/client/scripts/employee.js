@@ -11,6 +11,9 @@ let ticketData;
 let employee = sessionStorage.getItem('principal');
 let empObj = JSON.parse(employee);
 
+let heading = document.querySelector('h1');
+heading.innerText = `Welcome ${empObj.firstName}`;
+
 async function pending() {
     let response = await fetch(`${url}tickets/emp&tickets=pending`, {
         method: 'POST',
@@ -48,15 +51,6 @@ async function resolved() {
 }
 
 function newTicket() {
-    // What is needed in the ticket?
-    /*
-        - ID: will be set by Java
-        - Author: will be added here
-        - Submitted: taken care of by the DB
-        - approvedBy: will be null
-        - status: set by the DB
-    */
-    // amount, type, description
     divCon.innerHTML = '';
     nt.style.display = 'block';
 
@@ -93,25 +87,56 @@ async function submitTicket() {
 function profile() {
     nt.style.display = 'none';
     divCon.innerHTML = '';
-    // Show the employees details
-    let employee = document.createElement("div");
-    employee.id = 'empProfile';
-    employee.innerHTML = `<p>Username: ${empObj.username}</p><p>First Name: ${empObj.firstName}</p><p>Last Name: ${empObj.lastName}</p><p>Email: ${empObj.email}</p>`;
-    divCon.append(employee);
+    let contDiv = document.createElement('div');
+    contDiv.id = 'contDiv';
+    let categories  = ['Username', 'First Name', 'Last Name', 'Email'];
+    categories.map(cat => {
+        let editDiv = document.createElement('div');
+        editDiv.id = 'editDiv';
+        let p1 = document.createElement('p');
+        let p2 = document.createElement('p');
+        switch(cat) {
+            case 'Username':
+                p1.innerText = cat;
+                p2.innerText = `${empObj.username}`;
+            break;
+            case "First Name":
+                p1.innerText = cat;
+                p2.innerText = `${empObj.firstName}`;
+            break;
+            case "Last Name":
+                p1.innerText = cat;
+                p2.innerText = `${empObj.lastName}`;
+            break;
+            case "Email":
+                p1.innerText = cat;
+                p2.innerText = `${empObj.email}`;
+            break;
+        }
+        editDiv.append(p1);
+        editDiv.append(p2)
+        contDiv.append(editDiv);
+    })
     let button = document.createElement("button");
-    button.innerText = "Edit Profile";
+    button.innerText = "Edit";
     button.addEventListener("click", editProfile)
-    divCon.append(button);
+    contDiv.append(button);
+    divCon.append(contDiv);
 }
 
 function editProfile() {
 
     divCon.innerHTML = '';
     let categories  = ['Username', 'First Name', 'Last Name', 'Email'];
+    let contDiv = document.createElement('div');
+    contDiv.id = 'contDiv';
 
     categories.map(cat => {
         let input = document.createElement('input');
         let label = document.createElement('label');
+        let editDiv = document.createElement('div');
+        editDiv.id = 'editDiv';
+
         input.placeholder = cat;
         label.htmlFor = `emp${cat}`;
         label.innerText = cat;
@@ -134,9 +159,10 @@ function editProfile() {
                 input.type = 'email';
             break;
         }
-        divCon.append(label);
-        divCon.append(input);
-        divCon.append(document.createElement('br'));
+        editDiv.append(label);
+        editDiv.append(input);
+        contDiv.append(editDiv);
+        divCon.append(contDiv);
 
     })
     let submit = document.createElement("button");
@@ -150,7 +176,7 @@ function editProfile() {
         e.data = empObj;
         updateProfile();
     })
-    divCon.append(submit);
+    contDiv.append(submit);
 }
 
 async function updateProfile() {
@@ -176,19 +202,22 @@ function addTickets(data) {
     divCon.innerHTML = '';
     if(data.length > 1) {
         data.map(t => {
+            divCon.style.justifyContent = 'space-between';
             let ticket = document.createElement('div');
-            ticket.class = 'ticketDiv';
-            ticket.innerHTML = `<p>Ticket ID: ${t.id}</p><p>Amount: ${t.amount}</p><p>Status: ${t.status}</p><p>Submitted: ${t.submitted}</p><hr>`;
+            ticket.className = 'ticketDiv';
+            ticket.style.height = '200px';
+            ticket.innerHTML = `<p>Ticket ID: ${t.id}</p><p>Amount: ${t.amount}</p><p>Status: ${t.status}</p><p>Submitted: ${t.submitted}</p>`;
             ticket.addEventListener('click', e => {e.data = t; addTickets(e.data)});
             divCon.append(ticket);
         });
     } else {
         let ticket = document.createElement('div');
-        ticket.class = 'ticketDiv';
+        ticket.className = 'ticketDiv';
+        divCon.style.justifyContent = 'center'
         if(data.id == undefined) {
-            ticket.innerHTML = `<p>Ticket ID: ${data[0].id}</p><p>Amount: ${data[0].amount}</p><p>Description: ${data[0].description}</p><p>Type: ${data[0].type}</p><p>Status: ${data[0].status}</p><p>Approved By: ${data[0].approvedBy}</p><p>Submitted: ${data[0].submitted}</p><hr>`;
+            ticket.innerHTML = `<p>Ticket ID: ${data[0].id}</p><p>Amount: ${data[0].amount}</p><p>Description: ${data[0].description}</p><p>Type: ${data[0].type}</p><p>Status: ${data[0].status}</p><p>Approved By: ${data[0].approvedBy}</p><p>Submitted: ${data[0].submitted}</p>`;
         } else {
-            ticket.innerHTML = `<p>Ticket ID: ${data.id}</p><p>Amount: ${data.amount}</p><p>Description: ${data.description}</p><p>Type: ${data.type}</p><p>Status: ${data.status}</p><p>Approved By: ${data.approvedBy}</p><p>Submitted: ${data.submitted}</p><hr>`;
+            ticket.innerHTML = `<p>Ticket ID: ${data.id}</p><p>Amount: ${data.amount}</p><p>Description: ${data.description}</p><p>Type: ${data.type}</p><p>Status: ${data.status}</p><p>Approved By: ${data.approvedBy}</p><p>Submitted: ${data.submitted}</p>`;
         }
 
         divCon.append(ticket);
