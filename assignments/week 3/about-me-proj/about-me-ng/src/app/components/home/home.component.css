@@ -1,0 +1,15 @@
+#hero {
+    width: 32.7rem;
+    height: 43.3rem;
+}
+#main {
+    width: 100rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#content {
+    width: 50rem;
+    
+}
