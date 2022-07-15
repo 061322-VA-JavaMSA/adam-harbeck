@@ -55,7 +55,7 @@ public class TicketService {
 		}
 	}
 	
-	public List<Ticket> getAllEmployeeTickets(UUID id) {
+	public List<Ticket> getAllEmployeeTickets(UUID id) throws IdNotFoundException{
 		List<Ticket> tickets = td.getAllEmployeeTickets(id);
 		
 		return tickets;

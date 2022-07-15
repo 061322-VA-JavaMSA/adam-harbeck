@@ -101,10 +101,10 @@ public class TicketServlet extends HttpServlet{
 
 			} else if(path.equals("/emp&tickets=resolved")) {
 				UUID id = UUID.fromString(req.getParameter("id"));
-				
+				System.out.println("Hit");
 				List<Ticket> tickets = null;
 				try {
-					tickets = ts.getEmployeePending(id);
+					tickets = ts.getEmployeeResolved(id);
 					PrintWriter pw = res.getWriter();
 					pw.write(om.writeValueAsString(tickets));
 					res.setStatus(200);
@@ -121,7 +121,7 @@ public class TicketServlet extends HttpServlet{
 				
 				List<Ticket> tickets = null;
 				try {
-					tickets = ts.getEmployeePending(id);
+					tickets = ts.getAllEmployeeTickets(id);
 					PrintWriter pw = res.getWriter();
 					pw.write(om.writeValueAsString(tickets));
 					res.setStatus(200);
