@@ -5,10 +5,11 @@ import java.util.UUID;
 
 import com.revature.dao.EmployeeDao;
 import com.revature.dao.EmployeeHibernate;
+import com.revature.exceptions.UpdateEmployeeException;
 import com.revature.models.Employee;
 
 public class EmployeeService {
-
+	
 	EmployeeDao ed = new EmployeeHibernate();
 	
 	public List<Employee> getEmployees() {
@@ -17,16 +18,25 @@ public class EmployeeService {
 	}
 	
 	public Employee getEmployeeById(UUID id) {
-		Employee emp = ed.getById(id);
-		
+		Employee emp;
+
+		emp = ed.getById(id);
 		return emp;
+
 		
 	}
 	
-	public boolean updateEmployee(Employee e) {
-		boolean update = ed.updateEmployee(e);
-		
+	public boolean updateEmployee(Employee e) throws UpdateEmployeeException{
+		boolean update;
+
+		update = ed.updateEmployee(e);
+		if(!update) {
+			throw new UpdateEmployeeException();
+		}
 		return update;
+
+		
+
 	}
 }
 

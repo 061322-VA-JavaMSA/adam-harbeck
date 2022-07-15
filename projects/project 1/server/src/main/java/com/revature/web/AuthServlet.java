@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dto.EmployeeDto;
 import com.revature.exceptions.LoginException;
@@ -22,6 +25,7 @@ public class AuthServlet extends HttpServlet{
 
 	private AuthService authServ = new AuthService();
 	private ObjectMapper om = new ObjectMapper();
+	private static Logger log = LogManager.getLogger(AuthServlet.class);
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -45,9 +49,11 @@ public class AuthServlet extends HttpServlet{
 			try(PrintWriter pw = res.getWriter()){
 				pw.write(om.writeValueAsString(principalDTO));
 				res.setStatus(200);
+				log.info("Login was successful.");
 			}
 		} catch (UserNotFoundException | LoginException e) {
 			res.sendError(400, "Login unsuccessful.");
+			log.error("Login was unsuccessful."); 
 			e.printStackTrace();
 		}
 	}
@@ -57,8 +63,9 @@ public class AuthServlet extends HttpServlet{
 		Cors.addCorsHeader(req.getRequestURI(), res);
 		
 		HttpSession session = req.getSession();
-		
+
 		session.invalidate();
+		log.info("Session has been invalidated.");
 	}
 	
 	// This fixes the preflight issue

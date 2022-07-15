@@ -1,0 +1,15 @@
+16:05:20 [http-nio-8080-exec-7] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.1.Final
+16:05:20 [http-nio-8080-exec-7] INFO  org.hibernate.cfg.Environment - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.url=jdbc:postgresql://localhost:5432/ERS_DB, hibernate.bytecode.use_reflection_optimizer=false, hibernate.connection.password=****, hibernate.connection.username=postgres}
+16:05:20 [http-nio-8080-exec-7] WARN  org.hibernate.orm.deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+16:05:20 [http-nio-8080-exec-7] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+16:05:20 [http-nio-8080-exec-7] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+16:05:20 [http-nio-8080-exec-7] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/ERS_DB]
+16:05:20 [http-nio-8080-exec-7] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=, dialect=org.hibernate.dialect.postgreSQLDialect, user=postgres}
+16:05:20 [http-nio-8080-exec-7] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+16:05:20 [http-nio-8080-exec-7] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+16:05:21 [http-nio-8080-exec-7] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+16:05:22 [http-nio-8080-exec-7] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@46253b3d] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+16:05:22 [http-nio-8080-exec-7] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+16:05:28 [http-nio-8080-exec-8] INFO  com.revature.service.TicketService - Retrieved all pending tickets.
+16:05:31 [http-nio-8080-exec-9] INFO  com.revature.service.TicketService - Retrieved all resolved tickets.
+16:05:33 [http-nio-8080-exec-10] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.

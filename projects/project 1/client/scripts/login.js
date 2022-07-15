@@ -37,8 +37,11 @@ async function login() {
         } else {
             window.location.href = "/client/views/eDashboard.html";
         }
-
-
+    } else {
+        let body = document.querySelector("body");
+        let p = document.createElement('p');
+        p.innerText= "Username or password is incorrect.";
+        p.style.textAlign = 'center';
+        body.append(p);
     }
-
 }
