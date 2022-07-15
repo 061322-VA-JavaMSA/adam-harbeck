@@ -13,3 +13,29 @@
 16:05:28 [http-nio-8080-exec-8] INFO  com.revature.service.TicketService - Retrieved all pending tickets.
 16:05:31 [http-nio-8080-exec-9] INFO  com.revature.service.TicketService - Retrieved all resolved tickets.
 16:05:33 [http-nio-8080-exec-10] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+06:49:28 [http-nio-8080-exec-4] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.1.Final
+06:49:28 [http-nio-8080-exec-4] INFO  org.hibernate.cfg.Environment - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.url=jdbc:postgresql://localhost:5432/ERS_DB, hibernate.bytecode.use_reflection_optimizer=false, hibernate.connection.password=****, hibernate.connection.username=postgres}
+06:49:28 [http-nio-8080-exec-4] WARN  org.hibernate.orm.deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+06:49:29 [http-nio-8080-exec-4] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+06:49:29 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+06:49:29 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/ERS_DB]
+06:49:29 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=, dialect=org.hibernate.dialect.postgreSQLDialect, user=postgres}
+06:49:29 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+06:49:29 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+06:49:29 [http-nio-8080-exec-4] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+06:49:31 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@506a7bb9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+06:49:31 [http-nio-8080-exec-4] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+06:49:31 [http-nio-8080-exec-4] INFO  com.revature.web.AuthServlet - Login was successful.
+06:57:37 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.10.Final
+06:57:37 [main] INFO  org.hibernate.cfg.Environment - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.username=postgres, hibernate.connection.password=****, hibernate.connection.url=jdbc:postgresql://localhost:5432/ERS_DB, hibernate.bytecode.use_reflection_optimizer=false}
+06:57:38 [main] WARN  org.hibernate.orm.deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+06:57:38 [main] INFO  org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+06:57:38 [main] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+06:57:38 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: using driver [null] at URL [jdbc:postgresql://localhost:5432/ERS_DB]
+06:57:38 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=postgres, password=, dialect=org.hibernate.dialect.postgreSQLDialect}
+06:57:38 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+06:57:38 [main] INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+06:57:38 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+06:57:39 [main] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@a7ad6e5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+06:57:39 [main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+06:57:39 [main] ERROR com.revature.dao.EmployeeHibernate - Username not found.

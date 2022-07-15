@@ -6,9 +6,11 @@ import java.sql.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.*;
+
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.*;
 
 @Entity
 @Table ( name = "tickets", schema = "public")

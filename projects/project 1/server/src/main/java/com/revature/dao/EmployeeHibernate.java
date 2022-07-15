@@ -11,13 +11,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.models.Employee;
-import com.revature.service.AuthService;
 import com.revature.util.HibernateUtil;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 public class EmployeeHibernate implements EmployeeDao{
 	
@@ -54,7 +53,7 @@ public class EmployeeHibernate implements EmployeeDao{
 			emp = (Employee) s.createQuery(cq).getSingleResult();
 
 			
-		} catch (HibernateException | IOException | jakarta.persistence.NoResultException e) {
+		} catch (HibernateException | IOException | javax.persistence.NoResultException e) {
 			log.error("Username not found.");
 			e.printStackTrace();
 		}

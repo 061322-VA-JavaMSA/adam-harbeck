@@ -3,7 +3,7 @@ package com.revature.models;
 import java.util.Objects;
 import java.util.UUID;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity
