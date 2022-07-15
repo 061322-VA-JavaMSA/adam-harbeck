@@ -2,8 +2,7 @@ package com.revature.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -12,8 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.models.Status;
+import com.revature.exceptions.IdNotFoundException;
+import com.revature.exceptions.UpdateTicketException;
 import com.revature.models.Ticket;
 import com.revature.service.TicketService;
 import com.revature.util.Cors;
@@ -23,15 +26,12 @@ public class TicketServlet extends HttpServlet{
 	TicketService ts = new TicketService();
 	ObjectMapper om = new ObjectMapper();
 	
+	private static Logger log = LogManager.getLogger(TicketServlet.class);
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		Cors.addCorsHeader(req.getRequestURI(), res);
 		res.addHeader("Content-Type", "application/json");
 
-		/*
-		  So, this works for the manager. It gets the /pending and /resolved.
-		  However, a user is supposed to be able to get their pending and resolved.
-		  I could set it to a user such as /tickets/emp=[username]/pending
-		 */
 		String path = req.getPathInfo();
 
 		if(path.equals("/pending")) {
@@ -40,6 +40,7 @@ public class TicketServlet extends HttpServlet{
 			PrintWriter pw = res.getWriter();
 			pw.write(om.writeValueAsString(tickets));
 			res.setStatus(200);
+			log.info("Retrieved all pending tickets.");
 			pw.close();
 			
 		} else if(path.equals("/resolved")) {
@@ -48,6 +49,7 @@ public class TicketServlet extends HttpServlet{
 			PrintWriter pw = res.getWriter();
 			pw.write(om.writeValueAsString(tickets));
 			res.setStatus(200);
+			log.info("Retrieved all resolved tickets.");
 			pw.close();
 			
 		} 
@@ -64,44 +66,72 @@ public class TicketServlet extends HttpServlet{
 			UUID id = UUID.randomUUID();
 			Ticket t = om.readValue(req.getInputStream(), Ticket.class);
 			t.setId(id);
-			System.out.println(t);
-			Ticket tk = ts.createTicket(t);
-			
-			PrintWriter pw = res.getWriter();
-			pw.write(om.writeValueAsString(tk));
-			res.setStatus(201);
-			pw.close();
+			if(t.getAmount() == 0) {
+				res.setStatus(400);
+				log.error("Unable to create a new ticket.");
+			} else {
+				Ticket tk = ts.createTicket(t);
+				
+				PrintWriter pw = res.getWriter();
+				pw.write(om.writeValueAsString(tk));
+				res.setStatus(201);
+				log.info("New ticket has been created with ID: " + id + ".");
+				pw.close();
+			}
+
 			
 		} else {
 			if(path.equals("/emp&tickets=pending")) {
 
-
 				UUID id = UUID.fromString(req.getParameter("id"));
-				System.out.println(id); // Reads null
-				List<Ticket> tickets = ts.getEmployeePending(id);
 				
-				PrintWriter pw = res.getWriter();
-				pw.write(om.writeValueAsString(tickets));
-				res.setStatus(200);
-				pw.close();
-				
+				List<Ticket> tickets = null;
+				try {
+					tickets = ts.getEmployeePending(id);
+					PrintWriter pw = res.getWriter();
+					pw.write(om.writeValueAsString(tickets));
+					res.setStatus(200);
+					log.info("Pending tickets for " + id + " have been retrieved.");
+					pw.close();
+				} catch (IdNotFoundException e) {
+					log.error("Id was not found.");
+					res.setStatus(400);
+					e.printStackTrace();
+				}
+
 			} else if(path.equals("/emp&tickets=resolved")) {
 				UUID id = UUID.fromString(req.getParameter("id"));
-				List<Ticket> tickets = ts.getEmployeeResolved(id);
 				
-				PrintWriter pw = res.getWriter();
-				pw.write(om.writeValueAsString(tickets));
-				res.setStatus(200);
-				pw.close();
+				List<Ticket> tickets = null;
+				try {
+					tickets = ts.getEmployeePending(id);
+					PrintWriter pw = res.getWriter();
+					pw.write(om.writeValueAsString(tickets));
+					res.setStatus(200);
+					log.info("Resolved tickets for " + id + " have been retrieved.");
+					pw.close();
+				} catch (IdNotFoundException e) {
+					log.error("Id was not found.");
+					res.setStatus(400);
+					e.printStackTrace();
+				}
 				
 			} else if(path.equals("/emp&tickets")) {
 				UUID id = UUID.fromString(req.getParameter("id"));
-				List<Ticket> tickets = ts.getAllEmployeeTickets(id);
 				
-				PrintWriter pw = res.getWriter();
-				pw.write(om.writeValueAsString(tickets));
-				res.setStatus(200);
-				pw.close();
+				List<Ticket> tickets = null;
+				try {
+					tickets = ts.getEmployeePending(id);
+					PrintWriter pw = res.getWriter();
+					pw.write(om.writeValueAsString(tickets));
+					res.setStatus(200);
+					log.info("Tickets for " + id + " have been retrieved.");
+					pw.close();
+				} catch (IdNotFoundException e) {
+					log.error("Id was not found.");
+					res.setStatus(400);
+					e.printStackTrace();
+				}
 			} 
 		}
 		
@@ -113,14 +143,16 @@ public class TicketServlet extends HttpServlet{
 		Cors.addCorsHeader(req.getRequestURI(), res);
 		
 		Ticket t = om.readValue(req.getInputStream(), Ticket.class);
-		boolean updated = ts.updateTicket(t);
-
-		if(updated) {
+		boolean updated;
+		try {
+			updated = ts.updateTicket(t);
 			res.setStatus(202);
-		} else {
+			log.info("Ticket " + t.getId() + " has been updated.");
+		} catch (UpdateTicketException e) {
+			log.error("Ticket could not be updated.");
 			res.setStatus(304);
+			e.printStackTrace();
 		}
-
 		
 	}
 	

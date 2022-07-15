@@ -3,7 +3,6 @@ package com.revature.dao;
 import java.util.List;
 import java.util.UUID;
 
-import com.revature.models.Employee;
 import com.revature.models.Ticket;
 
 public interface TicketDao {
