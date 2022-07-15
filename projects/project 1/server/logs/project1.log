@@ -122,3 +122,140 @@ java.lang.IllegalStateException: Cannot get a connection as the driver manager i
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
 06:58:36 [http-nio-8080-exec-4] ERROR com.revature.dao.EmployeeHibernate - Username not found.
 06:58:36 [http-nio-8080-exec-4] ERROR com.revature.web.AuthServlet - Login was unsuccessful.
+07:02:07 [http-nio-8080-exec-4] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.1.Final
+07:02:07 [http-nio-8080-exec-4] INFO  org.hibernate.cfg.Environment - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.url=jdbc:postgresql://localhost:5432/ERS_DB, hibernate.bytecode.use_reflection_optimizer=false, hibernate.connection.password=****, hibernate.connection.username=postgres}
+07:02:07 [http-nio-8080-exec-4] WARN  org.hibernate.orm.deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+07:02:08 [http-nio-8080-exec-4] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+07:02:08 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+07:02:08 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/ERS_DB]
+07:02:08 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=, dialect=org.hibernate.dialect.postgreSQLDialect, user=postgres}
+07:02:08 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+07:02:08 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+07:02:08 [http-nio-8080-exec-4] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+07:02:09 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@33ed0a0e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+07:02:09 [http-nio-8080-exec-4] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+07:02:10 [http-nio-8080-exec-4] INFO  com.revature.web.AuthServlet - Login was successful.
+07:06:50 [http-nio-8080-exec-7] INFO  com.revature.web.AuthServlet - Login was successful.
+07:23:28 [http-nio-8080-exec-10] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+07:39:01 [http-nio-8080-exec-3] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+07:59:44 [http-nio-8080-exec-5] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+08:15:19 [http-nio-8080-exec-8] INFO  com.revature.web.AuthServlet - Login was successful.
+08:15:22 [http-nio-8080-exec-9] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:15:24 [http-nio-8080-exec-10] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:15:25 [http-nio-8080-exec-1] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:15:27 [http-nio-8080-exec-2] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:15:28 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:15:29 [http-nio-8080-exec-4] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:15:40 [http-nio-8080-exec-5] INFO  com.revature.web.EmployeeServlet - Employee with ID: 90bc6cfc-758a-4017-8906-d5406606a4a2 has been updated.
+08:15:52 [http-nio-8080-exec-8] INFO  com.revature.web.TicketServlet - New ticket has been created with ID: e4f83936-574d-4544-b642-4d957124bd30.
+08:15:55 [http-nio-8080-exec-9] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:16:02 [http-nio-8080-exec-1] INFO  com.revature.web.AuthServlet - Session has been invalidated.
+08:16:11 [http-nio-8080-exec-2] INFO  com.revature.web.AuthServlet - Login was successful.
+08:16:13 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Retrieved all pending tickets.
+08:16:19 [http-nio-8080-exec-6] INFO  com.revature.web.TicketServlet - Ticket e1062a98-51b9-41f0-b44c-12443d12043b has been updated.
+08:16:22 [http-nio-8080-exec-5] INFO  com.revature.web.TicketServlet - Retrieved all pending tickets.
+08:16:26 [http-nio-8080-exec-7] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+08:16:32 [http-nio-8080-exec-8] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+08:16:34 [http-nio-8080-exec-9] ERROR com.revature.web.TicketServlet - Id was not found.
+08:16:34 [http-nio-8080-exec-10] ERROR com.revature.web.TicketServlet - Id was not found.
+08:16:35 [http-nio-8080-exec-1] ERROR com.revature.web.TicketServlet - Id was not found.
+08:16:35 [http-nio-8080-exec-2] ERROR com.revature.web.TicketServlet - Id was not found.
+08:16:35 [http-nio-8080-exec-3] ERROR com.revature.web.TicketServlet - Id was not found.
+08:16:37 [http-nio-8080-exec-4] INFO  com.revature.web.TicketServlet - Tickets for 5da8f813-c538-401c-9bfd-8ebd691c7449 have been retrieved.
+08:16:45 [http-nio-8080-exec-5] INFO  com.revature.web.TicketServlet - Retrieved all pending tickets.
+08:16:46 [http-nio-8080-exec-8] INFO  com.revature.web.AuthServlet - Session has been invalidated.
+08:16:58 [http-nio-8080-exec-9] INFO  com.revature.web.AuthServlet - Login was successful.
+08:17:00 [http-nio-8080-exec-10] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:17:01 [http-nio-8080-exec-1] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:17:03 [http-nio-8080-exec-3] INFO  com.revature.web.AuthServlet - Session has been invalidated.
+08:49:05 [http-nio-8080-exec-4] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.1.Final
+08:49:05 [http-nio-8080-exec-4] INFO  org.hibernate.cfg.Environment - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.url=jdbc:postgresql://localhost:5432/ERS_DB, hibernate.bytecode.use_reflection_optimizer=false, hibernate.connection.password=****, hibernate.connection.username=postgres}
+08:49:06 [http-nio-8080-exec-4] WARN  org.hibernate.orm.deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+08:49:06 [http-nio-8080-exec-4] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+08:49:06 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+08:49:06 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/ERS_DB]
+08:49:06 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=, dialect=org.hibernate.dialect.postgreSQLDialect, user=postgres}
+08:49:06 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+08:49:06 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+08:49:06 [http-nio-8080-exec-4] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+08:49:08 [http-nio-8080-exec-4] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@29660dca] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+08:49:08 [http-nio-8080-exec-4] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+08:49:08 [http-nio-8080-exec-4] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+08:49:19 [http-nio-8080-exec-6] INFO  com.revature.web.AuthServlet - Login was successful.
+08:49:28 [http-nio-8080-exec-7] INFO  com.revature.web.AuthServlet - Login was successful.
+08:49:55 [http-nio-8080-exec-10] INFO  com.revature.web.TicketServlet - Retrieved all pending tickets.
+08:49:59 [http-nio-8080-exec-1] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+08:50:13 [http-nio-8080-exec-2] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+08:50:14 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Tickets for 5da8f813-c538-401c-9bfd-8ebd691c7449 have been retrieved.
+08:50:18 [http-nio-8080-exec-4] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+08:50:20 [http-nio-8080-exec-5] INFO  com.revature.web.TicketServlet - Retrieved all pending tickets.
+08:50:23 [http-nio-8080-exec-7] INFO  com.revature.web.AuthServlet - Session has been invalidated.
+08:50:34 [http-nio-8080-exec-8] INFO  com.revature.web.AuthServlet - Login was successful.
+08:50:37 [http-nio-8080-exec-9] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:50:38 [http-nio-8080-exec-10] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:50:45 [http-nio-8080-exec-2] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:50:48 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:51:22 [http-nio-8080-exec-5] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:51:37 [http-nio-8080-exec-7] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:53:47 [http-nio-8080-exec-9] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:53:48 [http-nio-8080-exec-10] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:53:51 [http-nio-8080-exec-1] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:53:52 [http-nio-8080-exec-2] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:53:53 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:53:53 [http-nio-8080-exec-4] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:54:12 [http-nio-8080-exec-6] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:55:06 [http-nio-8080-exec-7] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:55:24 [http-nio-8080-exec-2] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.1.Final
+08:55:24 [http-nio-8080-exec-2] INFO  org.hibernate.cfg.Environment - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.url=jdbc:postgresql://localhost:5432/ERS_DB, hibernate.bytecode.use_reflection_optimizer=false, hibernate.connection.password=****, hibernate.connection.username=postgres}
+08:55:24 [http-nio-8080-exec-2] WARN  org.hibernate.orm.deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+08:55:24 [http-nio-8080-exec-2] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+08:55:25 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+08:55:25 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/ERS_DB]
+08:55:25 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=, dialect=org.hibernate.dialect.postgreSQLDialect, user=postgres}
+08:55:25 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+08:55:25 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+08:55:25 [http-nio-8080-exec-2] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+08:55:26 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3d339159] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+08:55:26 [http-nio-8080-exec-2] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+08:55:27 [http-nio-8080-exec-2] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:56:23 [http-nio-8080-exec-5] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:56:24 [http-nio-8080-exec-6] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+08:59:56 [http-nio-8080-exec-2] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.1.Final
+08:59:56 [http-nio-8080-exec-2] INFO  org.hibernate.cfg.Environment - HHH000205: Loaded properties from resource hibernate.properties: {hibernate.connection.url=jdbc:postgresql://localhost:5432/ERS_DB, hibernate.bytecode.use_reflection_optimizer=false, hibernate.connection.password=****, hibernate.connection.username=postgres}
+08:59:56 [http-nio-8080-exec-2] WARN  org.hibernate.orm.deprecation - HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
+08:59:57 [http-nio-8080-exec-2] WARN  org.hibernate.orm.connections.pooling - HHH10001002: Using built-in connection pool (not intended for production use)
+08:59:57 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+08:59:57 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/ERS_DB]
+08:59:57 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {password=, dialect=org.hibernate.dialect.postgreSQLDialect, user=postgres}
+08:59:57 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+08:59:57 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.pooling - HHH10001115: Connection pool size: 20 (min=1)
+08:59:57 [http-nio-8080-exec-2] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+08:59:58 [http-nio-8080-exec-2] INFO  org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2ab22876] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+08:59:58 [http-nio-8080-exec-2] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+08:59:59 [http-nio-8080-exec-2] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:00:03 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:00:04 [http-nio-8080-exec-4] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:00:09 [http-nio-8080-exec-7] INFO  com.revature.web.AuthServlet - Session has been invalidated.
+09:00:19 [http-nio-8080-exec-8] INFO  com.revature.web.AuthServlet - Login was successful.
+09:00:21 [http-nio-8080-exec-9] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+09:00:26 [http-nio-8080-exec-10] INFO  com.revature.web.TicketServlet - Retrieved all pending tickets.
+09:00:28 [http-nio-8080-exec-1] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+09:01:19 [http-nio-8080-exec-4] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+09:01:19 [http-nio-8080-exec-5] INFO  com.revature.web.TicketServlet - Tickets for 72df26b7-c4bb-48f3-8cb9-4ffcbb112f9d have been retrieved.
+09:01:20 [http-nio-8080-exec-6] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+09:01:21 [http-nio-8080-exec-7] INFO  com.revature.web.TicketServlet - Tickets for 5da8f813-c538-401c-9bfd-8ebd691c7449 have been retrieved.
+09:01:22 [http-nio-8080-exec-8] INFO  com.revature.web.EmployeeServlet - Retrieved all employees.
+09:01:22 [http-nio-8080-exec-9] INFO  com.revature.web.TicketServlet - Tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:01:29 [http-nio-8080-exec-10] INFO  com.revature.web.TicketServlet - Retrieved all pending tickets.
+09:02:16 [http-nio-8080-exec-2] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+09:02:18 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+09:02:19 [http-nio-8080-exec-4] INFO  com.revature.web.TicketServlet - Retrieved all resolved tickets.
+09:02:47 [http-nio-8080-exec-7] INFO  com.revature.web.AuthServlet - Session has been invalidated.
+09:04:42 [http-nio-8080-exec-10] INFO  com.revature.web.AuthServlet - Login was successful.
+09:04:44 [http-nio-8080-exec-1] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:04:46 [http-nio-8080-exec-2] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:04:48 [http-nio-8080-exec-3] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:04:51 [http-nio-8080-exec-4] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:04:58 [http-nio-8080-exec-5] INFO  com.revature.web.TicketServlet - Pending tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:04:59 [http-nio-8080-exec-6] INFO  com.revature.web.TicketServlet - Resolved tickets for 90bc6cfc-758a-4017-8906-d5406606a4a2 have been retrieved.
+09:05:00 [http-nio-8080-exec-8] INFO  com.revature.web.AuthServlet - Session has been invalidated.
