@@ -68,7 +68,6 @@ async function submitTicket() {
         'submitted': d,
         'status': 'PENDING'
     }
-    console.log(object); // The data has been sent
     let response = await fetch(`${url}tickets`, {
         method: 'POST',
         credentials: 'include',
@@ -80,6 +79,15 @@ async function submitTicket() {
     if(response.status == 201) {
         nt.style.display = 'none';
         alert("Ticket added");
+        document.getElementById('forAmount').value = '';
+        document.getElementById('forDescription').value= '';
+        document.getElementById('forType').value = '';
+    } else {
+        let body = document.querySelector('body');
+        let p = document.createElement('p');
+        p.innerText = "Amount must be a number and higher than 0.";
+        p.style.textAlign = 'center';
+        body.append(p);
     }
 }
 

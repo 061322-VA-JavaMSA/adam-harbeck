@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.models.Employee;
+import com.revature.service.AuthService;
 import com.revature.util.HibernateUtil;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,12 +20,15 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 public class EmployeeHibernate implements EmployeeDao{
-
+	
+	private static Logger log = LogManager.getLogger(EmployeeHibernate.class);
+	
 	@Override
 	public List<Employee> getEmployees() {
 		List<Employee> employees = null;
 		try(Session s = HibernateUtil.getSessionFactory().openSession()){
 			employees = s.createQuery("from Employee where role = 'EMPLOYEE'", Employee.class).list();
+
 		} catch (HibernateException | IOException e) {
 
 			e.printStackTrace();
@@ -46,9 +52,10 @@ public class EmployeeHibernate implements EmployeeDao{
 			
 			cq.select(root).where(p);
 			emp = (Employee) s.createQuery(cq).getSingleResult();
+
 			
-		} catch (HibernateException | IOException e) {
-			// TODO Auto-generated catch block
+		} catch (HibernateException | IOException | jakarta.persistence.NoResultException e) {
+			log.error("Username not found.");
 			e.printStackTrace();
 		}
 		
@@ -56,10 +63,11 @@ public class EmployeeHibernate implements EmployeeDao{
 	}
 
 	@Override
-	public Employee getById(UUID id) {
+	public Employee getById(UUID id){
 		Employee emp = null;
 		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
 			emp = s.get(Employee.class, id);
+
 		} catch (HibernateException | IOException e) {
 
 			e.printStackTrace();
@@ -69,7 +77,7 @@ public class EmployeeHibernate implements EmployeeDao{
 	}
 
 	@Override
-	public boolean updateEmployee(Employee e) {
+	public boolean updateEmployee(Employee e){
 		try(Session s = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction tx = s.beginTransaction();
 			Employee emp = (Employee) s.get(Employee.class, e.getId());
@@ -79,10 +87,10 @@ public class EmployeeHibernate implements EmployeeDao{
 			emp.setEmail(e.getEmail());
 			s.merge(emp);
 			tx.commit();
+
 			return true;
 			
 		} catch (HibernateException | IOException e1) {
-
 			e1.printStackTrace();
 			return false;
 		}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<!-- <Console name='Console' target="SYSTEM_OUT"> <PatternLayout pattern="%d{HH:mm:ss} 
+			[%t] %-5level %logger{36} - %msg%n" /> </Console> -->
+		<File name="File" fileName="/Users/adamharbeck/Desktop/Revature/adam-harbeck/projects/project 1/server/logs/project1.log">
+			<PatternLayout
+				pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+	</Appenders>
+	<Loggers>
+
+		<Root level="all">
+			<!-- <AppenderRef ref="Console" /> -->
+			<AppenderRef ref="File" level="info"/>
+			<AppenderRef ref="File" level="error"/>
+			<AppenderRef ref="File" level="warn"/>
+
+		</Root>
+	</Loggers>
+</Configuration>

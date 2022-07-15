@@ -20,7 +20,6 @@ async function pending() {
         ticketData = await response.json();
         // Do something with the data
         addToPage(ticketData );
-
     }
 }
 

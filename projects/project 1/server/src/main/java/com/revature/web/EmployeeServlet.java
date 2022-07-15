@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dto.EmployeeDto;
+import com.revature.exceptions.UpdateEmployeeException;
 import com.revature.models.Employee;
-import com.revature.models.Ticket;
 import com.revature.service.EmployeeService;
 import com.revature.util.Cors;
 
@@ -21,6 +24,7 @@ public class EmployeeServlet extends HttpServlet{
 
 	EmployeeService es = new EmployeeService();
 	ObjectMapper om = new ObjectMapper();
+	private static Logger log = LogManager.getLogger(EmployeeServlet.class);
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -34,7 +38,7 @@ public class EmployeeServlet extends HttpServlet{
 		
 		PrintWriter pw = res.getWriter();
 		pw.write(om.writeValueAsString(empsDTO));
-		
+		log.info("Retrieved all employees.");
 		pw.close();
 	}
 	
@@ -43,14 +47,16 @@ public class EmployeeServlet extends HttpServlet{
 		Cors.addCorsHeader(req.getRequestURI(), res);
 		
 		Employee e = om.readValue(req.getInputStream(), Employee.class);
-		boolean updated = es.updateEmployee(e);
-
-		if(updated) {
+		boolean updated;
+		try {
+			updated = es.updateEmployee(e);
 			res.setStatus(202);
-		} else {
+			log.info("Employee with ID: " + e.getId() + " has been updated.");
+		} catch (UpdateEmployeeException e1) {
 			res.setStatus(304);
+			log.error("Employee with ID: " + e.getId() + " was not updated.");
+			e1.printStackTrace();
 		}
-
 		
 	}
 	

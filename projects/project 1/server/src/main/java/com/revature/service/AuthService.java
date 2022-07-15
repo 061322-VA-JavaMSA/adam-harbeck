@@ -11,7 +11,6 @@ public class AuthService {
 	private EmployeeDao eDao = new EmployeeHibernate();
 	
 	public Employee login(String username, String password) throws UserNotFoundException, LoginException {
-		
 		Employee principal = eDao.getByUsername(username);
 		
 		if(principal == null) {
